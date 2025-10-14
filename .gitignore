@@ -1,0 +1,11 @@
+# Ignore environment and secrets
+.env
+.env.local
+# Ignore common local files
+__pycache__/
+*.pyc
+*.log
+.vscode/
+.idea/
+node_modules/
+dist/
