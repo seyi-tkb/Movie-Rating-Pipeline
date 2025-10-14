@@ -1,0 +1,35 @@
+2025-09-21 09:09:16,926 - pipeline.s3_client - INFO - Successfully initialized S3 client.
+2025-09-21 09:09:16,928 - __main__ - INFO - Starting Bronze layer data pipeline...
+2025-09-21 09:09:16,929 - pipeline.a_bronze.ingest - INFO - Reading movies...
+2025-09-21 09:09:20,107 - pipeline.a_bronze.ingest - INFO - Successfully read movies.
+2025-09-21 09:09:20,109 - pipeline.a_bronze.ingest - INFO - Reading ratings...
+2025-09-21 09:09:27,875 - pipeline.a_bronze.ingest - INFO - Successfully read ratings.
+2025-09-21 09:09:27,876 - pipeline.a_bronze.ingest - INFO - Reading users...
+2025-09-21 09:09:29,889 - pipeline.a_bronze.ingest - INFO - Successfully read users.
+2025-09-21 09:09:29,897 - __main__ - INFO - Successfully ingested raw data.
+2025-09-21 09:09:29,897 - pipeline.a_bronze.validation - INFO - Validating columns for movies..
+2025-09-21 09:09:29,898 - pipeline.a_bronze.validation - INFO - successfully validated movies's columns.
+2025-09-21 09:09:29,899 - pipeline.a_bronze.validation - INFO - Validating columns for ratings..
+2025-09-21 09:09:29,899 - pipeline.a_bronze.validation - INFO - successfully validated ratings's columns.
+2025-09-21 09:09:29,900 - pipeline.a_bronze.validation - INFO - Validating columns for users..
+2025-09-21 09:09:29,901 - pipeline.a_bronze.validation - INFO - successfully validated users's columns.
+2025-09-21 09:09:29,909 - pipeline.a_bronze.validation - WARNING - movies has 4 missing values:
+release_date    1
+IMDb_URL        3
+dtype: int64
+2025-09-21 09:09:29,912 - pipeline.a_bronze.validation - INFO - No missing values found in ratings.
+2025-09-21 09:09:29,914 - pipeline.a_bronze.validation - INFO - No missing values found in users.
+2025-09-21 09:09:29,915 - __main__ - INFO - Data validation completed successfully.
+2025-09-21 09:09:30,763 - pipeline.s3_client - INFO - Bucket 'movie-pipeline-bronze' already exists.
+2025-09-21 09:09:30,776 - pipeline.s3_client - INFO - Successfully initialized S3 client.
+2025-09-21 09:09:30,777 - pipeline.a_bronze.upload - INFO - Starting movies upload to bronze bucket
+2025-09-21 09:09:30,813 - pipeline.a_bronze.upload - INFO - Uploading movies.csv to S3 bucket movie-pipeline-bronze
+2025-09-21 09:09:32,997 - pipeline.a_bronze.upload - INFO - Successfully uploaded movies.csv to S3 bucket movie-pipeline-bronze.
+2025-09-21 09:09:32,998 - pipeline.a_bronze.upload - INFO - Starting ratings upload to bronze bucket
+2025-09-21 09:09:33,100 - pipeline.a_bronze.upload - INFO - Uploading ratings.csv to S3 bucket movie-pipeline-bronze
+2025-09-21 09:09:35,021 - pipeline.a_bronze.upload - INFO - Successfully uploaded ratings.csv to S3 bucket movie-pipeline-bronze.
+2025-09-21 09:09:35,022 - pipeline.a_bronze.upload - INFO - Starting users upload to bronze bucket
+2025-09-21 09:09:35,028 - pipeline.a_bronze.upload - INFO - Uploading users.csv to S3 bucket movie-pipeline-bronze
+2025-09-21 09:09:35,309 - pipeline.a_bronze.upload - INFO - Successfully uploaded users.csv to S3 bucket movie-pipeline-bronze.
+2025-09-21 09:09:35,313 - __main__ - INFO - Data successfully uploaded to Bronze S3 bucket.
+2025-09-21 09:09:35,314 - __main__ - INFO - Bronze pipeline execution completed successfully!

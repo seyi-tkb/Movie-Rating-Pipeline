@@ -1,0 +1,81 @@
+version: "3.8"
+
+x-airflow-common:
+  &airflow-common
+  image: apache/airflow:2.9.3
+  environment:
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+    _PIP_ADDITIONAL_REQUIREMENTS: "pandas sqlalchemy"
+
+    # email env variables
+      # AIRFLOW__EMAIL__EMAIL_BACKEND: airflow.utils.email.send_email_smtp
+    AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+    AIRFLOW__SMTP__START_TLS: True
+    AIRFLOW__SMTP__SMTP_SSL: False
+    AIRFLOW__SMTP__SMTP_USER: marvee006@gmail.com
+    AIRFLOW__SMTP__SMTP_PASSWORD: grkwypgspunjvsnq
+    AIRFLOW__SMTP__SMTP_PORT: 587
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: marvee006@gmail.com
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./pipeline:/opt/airflow/pipeline
+    - ./utils:/opt/airflow/utils
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+    - ./:/opt/airflow 
+  user: "${AIRFLOW_UID:-50000}"
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    restart: always
+
+  airflow-init:
+    <<: *airflow-common
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: /bin/bash
+    command: -c "airflow db migrate"
+
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /opt/airflow/airflow.db ] || airflow db check"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+    restart: "no"
+
+  webserver:
+    <<: *airflow-common
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+
+  scheduler:
+    <<: *airflow-common
+    depends_on:
+      webserver:
+        condition: service_started
+    command: scheduler
+    restart: always
+
+volumes:
+  pgdata:

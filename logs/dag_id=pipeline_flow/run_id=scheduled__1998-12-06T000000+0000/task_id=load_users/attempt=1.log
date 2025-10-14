@@ -1,0 +1,29 @@
+[2025-10-11T06:09:12.694+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-10-11T06:09:12.761+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_flow.load_users scheduled__1998-12-06T00:00:00+00:00 [queued]>
+[2025-10-11T06:09:12.780+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_flow.load_users scheduled__1998-12-06T00:00:00+00:00 [queued]>
+[2025-10-11T06:09:12.782+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-10-11T06:09:12.805+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_users> on 1998-12-06 00:00:00+00:00
+[2025-10-11T06:09:12.819+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=10273) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-10-11T06:09:12.821+0000] {standard_task_runner.py:64} INFO - Started process 10280 to run task
+[2025-10-11T06:09:12.819+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_flow', 'load_users', 'scheduled__1998-12-06T00:00:00+00:00', '--job-id', '748', '--raw', '--subdir', 'DAGS_FOLDER/pipeline_dag.py', '--cfg-path', '/tmp/tmp57tk3rhk']
+[2025-10-11T06:09:12.823+0000] {standard_task_runner.py:91} INFO - Job 748: Subtask load_users
+[2025-10-11T06:09:12.916+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_flow.load_users scheduled__1998-12-06T00:00:00+00:00 [running]> on host 321597a50810
+[2025-10-11T06:09:13.100+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='oluwaseyiogundimu10@gmail.com' AIRFLOW_CTX_DAG_OWNER='seyi' AIRFLOW_CTX_DAG_ID='pipeline_flow' AIRFLOW_CTX_TASK_ID='load_users' AIRFLOW_CTX_EXECUTION_DATE='1998-12-06T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__1998-12-06T00:00:00+00:00'
+[2025-10-11T06:09:13.103+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-10-11T06:09:13.142+0000] {read_write_buckets.py:22} INFO - Reading users.csv from movie-pipeline-bronze bucket.
+[2025-10-11T06:09:13.448+0000] {s3_client.py:30} INFO - ✅ Successfully initialized S3 client.
+[2025-10-11T06:09:14.798+0000] {read_write_buckets.py:34} INFO - Successfully read users.csv into DataFrame. Shape: (943, 5)
+[2025-10-11T06:09:14.802+0000] {transform.py:185} INFO - Starting transformations for users..
+[2025-10-11T06:09:14.834+0000] {transform.py:202} INFO - Users data cleaned with 943 records
+[2025-10-11T06:09:14.836+0000] {read_write_buckets.py:50} INFO - Writing users.csv to movie-pipeline-silver bucket.
+[2025-10-11T06:09:16.967+0000] {read_write_buckets.py:66} INFO - Successfully wrote users.csv to Silver bucket.
+[2025-10-11T06:09:16.970+0000] {watermarks.py:48} INFO - Updating watermarks in S3...
+[2025-10-11T06:09:16.972+0000] {watermarks.py:25} INFO - Reading watermarks from S3 Bronze bucket...
+[2025-10-11T06:09:18.006+0000] {watermarks.py:30} INFO - Successfully read existing watermarks.
+[2025-10-11T06:09:18.551+0000] {watermarks.py:76} INFO - Watermarks updated successfully in S3.
+[2025-10-11T06:09:18.553+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-10-11T06:09:18.554+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-10-11T06:09:18.573+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=pipeline_flow, task_id=load_users, run_id=scheduled__1998-12-06T00:00:00+00:00, execution_date=19981206T000000, start_date=20251011T060912, end_date=20251011T060918
+[2025-10-11T06:09:18.645+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-10-11T06:09:18.694+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-10-11T06:09:18.698+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

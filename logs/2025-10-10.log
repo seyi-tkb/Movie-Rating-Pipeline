@@ -1,0 +1,215 @@
+2025-10-10 03:23:00,721 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:23:32,759 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:24:04,698 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:24:36,492 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:25:08,362 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:25:40,134 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:26:11,951 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:26:44,037 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:27:15,986 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:27:47,975 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:28:19,785 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:28:51,552 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:29:23,241 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:29:54,974 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:30:26,939 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:30:58,782 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:31:30,782 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:32:02,669 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:32:34,585 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:33:06,477 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:33:38,400 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:33:38,568 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:33:39,681 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:33:39,685 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 03:34:11,222 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:34:11,351 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:34:12,311 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:34:12,313 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 03:34:43,629 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:34:43,823 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:34:44,832 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:34:44,834 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 03:35:16,151 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:35:47,802 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:36:19,462 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:36:51,133 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:37:22,751 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:37:30,511 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:37:31,252 - pipeline.b_silver.transform - INFO - Starting transformations for ratings..
+2025-10-10 03:37:31,253 - pipeline.b_silver.read_write_buckets - INFO - Reading ratings.csv from movie-pipeline-bronze bucket.
+2025-10-10 03:37:43,722 - pipeline.b_silver.read_write_buckets - INFO - Successfully read ratings.csv into DataFrame. Shape: (100000, 4)
+2025-10-10 03:37:43,764 - pipeline.b_silver.transform - INFO - Weekly run: filtering 0 rating records from 2025-09-28 to 2025-10-05
+2025-10-10 03:37:43,767 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:37:44,017 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:37:44,019 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:37:44,261 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:37:44,263 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 03:37:54,283 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:38:26,195 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:38:57,920 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:39:29,963 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:40:02,025 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:40:12,693 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:40:13,519 - pipeline.b_silver.transform - INFO - Starting transformations for ratings..
+2025-10-10 03:40:13,520 - pipeline.b_silver.read_write_buckets - INFO - Reading ratings.csv from movie-pipeline-bronze bucket.
+2025-10-10 03:40:17,770 - pipeline.b_silver.read_write_buckets - INFO - Successfully read ratings.csv into DataFrame. Shape: (100000, 4)
+2025-10-10 03:40:17,809 - pipeline.b_silver.transform - INFO - Weekly run: filtering 0 rating records from 2025-09-28 to 2025-10-05
+2025-10-10 03:40:17,817 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:40:18,065 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:40:18,067 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 03:40:18,313 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 03:40:18,315 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 03:40:18,326 - pipeline.b_silver.transform - INFO - Filtered ratings to 0 new records after watermark 1998-04-22 23:10:38.
+2025-10-10 03:40:18,327 - pipeline.b_silver.transform - WARNING - No new ratings data to process after watermark filtering.
+2025-10-10 03:40:18,327 - pipeline.b_silver.read_write_buckets - INFO - Reading ratings/2025-09.csv from movie-pipeline-silver bucket.
+2025-10-10 03:40:19,401 - pipeline.b_silver.read_write_buckets - WARNING - ratings/2025-09.csv not found in movie-pipeline-silver. Initializing empty file with expected structure.
+2025-10-10 03:40:19,402 - pipeline.b_silver.read_write_buckets - INFO - Initializing ratings/2025-09.csv with empty structure.
+2025-10-10 03:40:19,407 - pipeline.b_silver.read_write_buckets - INFO - Writing ratings/2025-09.csv to movie-pipeline-silver bucket.
+2025-10-10 03:40:19,854 - pipeline.b_silver.read_write_buckets - INFO - Successfully wrote ratings/2025-09.csv to Silver bucket.
+2025-10-10 03:40:33,951 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:41:05,418 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:41:36,864 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:42:08,569 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:42:40,478 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:43:12,572 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:43:44,163 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:44:15,761 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:44:47,350 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:45:19,029 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:45:50,994 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:46:22,661 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:46:54,192 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:47:25,936 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:47:57,991 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:48:29,545 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:49:01,146 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:49:25,066 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:49:55,885 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:50:27,944 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:50:59,795 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:51:31,761 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:52:03,594 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:52:35,459 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 03:56:47,513 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:05:11,437 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:05:43,862 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:06:15,855 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:06:47,599 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:07:19,476 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:07:51,591 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:08:23,520 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:08:55,278 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:09:27,347 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:09:59,175 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:10:30,955 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:11:02,502 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:14:18,577 - pipeline.b_silver.transform - INFO - Starting transformations for ratings..
+2025-10-10 04:14:18,579 - pipeline.b_silver.read_write_buckets - INFO - Reading ratings.csv from movie-pipeline-bronze bucket.
+2025-10-10 04:14:18,687 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:14:21,343 - pipeline.b_silver.read_write_buckets - INFO - Successfully read ratings.csv into DataFrame. Shape: (100000, 4)
+2025-10-10 04:14:21,387 - pipeline.b_silver.transform - INFO - Weekly run: filtering 0 rating records from 2025-09-28 to 2025-10-05
+2025-10-10 04:14:21,389 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 04:14:21,622 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 04:14:21,624 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 04:14:21,858 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 04:14:21,860 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 04:14:21,874 - pipeline.b_silver.transform - INFO - Filtered ratings to 0 new records after watermark 1998-04-22 23:10:38.
+2025-10-10 04:14:21,875 - pipeline.b_silver.transform - WARNING - No new ratings data to process after watermark filtering.
+2025-10-10 04:14:21,876 - pipeline.b_silver.read_write_buckets - INFO - Reading ratings/2025-09.csv from movie-pipeline-silver bucket.
+2025-10-10 04:14:22,786 - pipeline.b_silver.read_write_buckets - INFO - Successfully read ratings/2025-09.csv into DataFrame. Shape: (0, 4)
+2025-10-10 04:14:22,791 - pipeline.b_silver.read_write_buckets - INFO - Writing ratings/2025-09.csv to movie-pipeline-silver bucket.
+2025-10-10 04:14:23,265 - pipeline.b_silver.read_write_buckets - INFO - Successfully wrote ratings/2025-09.csv to Silver bucket.
+2025-10-10 04:17:27,647 - pipeline.b_silver.read_write_buckets - INFO - Reading users.csv from movie-pipeline-bronze bucket.
+2025-10-10 04:17:27,746 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:17:28,799 - pipeline.b_silver.read_write_buckets - INFO - Successfully read users.csv into DataFrame. Shape: (943, 5)
+2025-10-10 04:17:28,802 - pipeline.b_silver.transform - INFO - Starting transformations for users..
+2025-10-10 04:17:28,831 - pipeline.b_silver.transform - INFO - Users data cleaned with 943 records
+2025-10-10 04:17:28,834 - pipeline.b_silver.read_write_buckets - INFO - Writing users.csv to movie-pipeline-silver bucket.
+2025-10-10 04:17:30,381 - pipeline.b_silver.read_write_buckets - INFO - Successfully wrote users.csv to Silver bucket.
+2025-10-10 04:17:30,384 - pipeline.b_silver.watermarks - INFO - Updating watermarks in S3...
+2025-10-10 04:17:30,385 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 04:17:30,627 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 04:17:31,076 - pipeline.b_silver.watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 04:20:04,797 - pipeline.b_silver.transform - INFO - Starting transformations for movie data..
+2025-10-10 04:20:04,798 - pipeline.b_silver.read_write_buckets - INFO - Reading movies.csv from movie-pipeline-bronze bucket.
+2025-10-10 04:20:04,913 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 04:20:06,722 - pipeline.b_silver.read_write_buckets - INFO - Successfully read movies.csv into DataFrame. Shape: (1682, 5)
+2025-10-10 04:20:06,760 - pipeline.b_silver.transform - INFO - Full load of 1428 records up to 1997-01-01
+2025-10-10 04:20:06,769 - pipeline.b_silver.transform - INFO - Movies data cleaned with 1428 records
+2025-10-10 04:20:06,771 - pipeline.b_silver.read_write_buckets - INFO - Writing movies.csv to movie-pipeline-silver bucket.
+2025-10-10 04:20:08,618 - pipeline.b_silver.read_write_buckets - INFO - Successfully wrote movies.csv to Silver bucket.
+2025-10-10 04:20:08,625 - pipeline.b_silver.watermarks - INFO - Updating watermarks in S3...
+2025-10-10 04:20:08,628 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 04:20:08,894 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 04:20:09,351 - pipeline.b_silver.watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 06:38:09,161 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 06:45:12,383 - pipeline.b_silver.transform - INFO - Starting transformations for movie data..
+2025-10-10 06:45:12,384 - pipeline.b_silver.read_write_buckets - INFO - Reading movies.csv from movie-pipeline-bronze bucket.
+2025-10-10 06:45:12,567 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 06:45:14,106 - pipeline.b_silver.read_write_buckets - INFO - Successfully read movies.csv into DataFrame. Shape: (1682, 5)
+2025-10-10 06:45:14,133 - pipeline.b_silver.transform - INFO - Full load of 1428 records up to 1997-01-01
+2025-10-10 06:45:14,140 - pipeline.b_silver.transform - INFO - Movies data cleaned with 1428 records
+2025-10-10 06:45:14,141 - pipeline.b_silver.read_write_buckets - INFO - Writing movies.csv to movie-pipeline-silver bucket.
+2025-10-10 06:45:16,145 - pipeline.b_silver.read_write_buckets - INFO - Successfully wrote movies.csv to Silver bucket.
+2025-10-10 06:45:16,148 - pipeline.b_silver.watermarks - INFO - Updating watermarks in S3...
+2025-10-10 06:45:16,150 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 06:45:16,397 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 06:45:16,876 - pipeline.b_silver.watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 06:45:35,794 - pipeline.b_silver.read_write_buckets - INFO - Reading users.csv from movie-pipeline-bronze bucket.
+2025-10-10 06:45:35,901 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 06:45:36,883 - pipeline.b_silver.read_write_buckets - INFO - Successfully read users.csv into DataFrame. Shape: (943, 5)
+2025-10-10 06:45:36,885 - pipeline.b_silver.transform - INFO - Starting transformations for users..
+2025-10-10 06:45:36,902 - pipeline.b_silver.transform - INFO - Users data cleaned with 943 records
+2025-10-10 06:45:36,905 - pipeline.b_silver.read_write_buckets - INFO - Writing users.csv to movie-pipeline-silver bucket.
+2025-10-10 06:45:38,343 - pipeline.b_silver.read_write_buckets - INFO - Successfully wrote users.csv to Silver bucket.
+2025-10-10 06:45:38,347 - pipeline.b_silver.watermarks - INFO - Updating watermarks in S3...
+2025-10-10 06:45:38,348 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 06:45:38,611 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 06:45:39,110 - pipeline.b_silver.watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 06:46:01,002 - pipeline.b_silver.transform - INFO - Starting transformations for ratings..
+2025-10-10 06:46:01,003 - pipeline.b_silver.read_write_buckets - INFO - Reading ratings.csv from movie-pipeline-bronze bucket.
+2025-10-10 06:46:01,120 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 06:46:04,097 - pipeline.b_silver.read_write_buckets - INFO - Successfully read ratings.csv into DataFrame. Shape: (100000, 4)
+2025-10-10 06:46:04,132 - pipeline.b_silver.transform - INFO - Weekly run: filtering 0 rating records from 2025-09-28 to 2025-10-05
+2025-10-10 06:46:04,135 - pipeline.b_silver.watermarks - INFO - Reading watermarks from S3 Bronze bucket...
+2025-10-10 06:46:04,375 - pipeline.b_silver.watermarks - INFO - Successfully read existing watermarks.
+2025-10-10 06:46:04,377 - pipeline.b_silver.transform - INFO - Applying watermark filter for ratings..
+2025-10-10 06:46:04,389 - pipeline.b_silver.transform - INFO - Filtered ratings to 0 new records after watermark 1998-04-22 23:10:38.
+2025-10-10 06:46:04,390 - pipeline.b_silver.transform - WARNING - No new ratings data to process after watermark filtering.
+2025-10-10 07:19:23,004 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 07:19:23,006 - pipeline.s_gold.read_bucket - INFO - Reading users.csv from movie-pipeline-silver bucket.
+2025-10-10 07:19:26,033 - pipeline.s_gold.read_bucket - INFO - Successfully read users.csv into DataFrame. Shape: (943, 5)
+2025-10-10 07:19:26,034 - pipeline.s_gold.load - INFO - Starting load for users..
+2025-10-10 07:58:14,968 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 07:58:14,970 - pipeline.s_gold.read_bucket - INFO - Reading users.csv from movie-pipeline-silver bucket.
+2025-10-10 07:58:16,091 - pipeline.s_gold.read_bucket - INFO - Successfully read users.csv into DataFrame. Shape: (943, 5)
+2025-10-10 07:58:16,094 - pipeline.s_gold.load - INFO - Starting load for users..
+2025-10-10 07:58:16,491 - pipeline.s_gold.load - INFO - User upsert complete. New and changed user records successfully processed.
+2025-10-10 07:58:16,501 - pipeline.s_gold.silver_watermarks - INFO - Updating watermarks in S3...
+2025-10-10 07:58:16,502 - pipeline.s_gold.silver_watermarks - INFO - Reading watermarks from s3..
+2025-10-10 07:58:16,732 - pipeline.s_gold.silver_watermarks - WARNING - Watermarks not found. Initializing One. Details: 'body'
+2025-10-10 07:58:17,690 - pipeline.s_gold.silver_watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 08:15:05,007 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 08:15:05,009 - pipeline.s_gold.read_bucket - INFO - Reading movies.csv from movie-pipeline-silver bucket.
+2025-10-10 08:15:06,712 - pipeline.s_gold.read_bucket - INFO - Successfully read movies.csv into DataFrame. Shape: (1428, 5)
+2025-10-10 08:15:07,242 - pipeline.s_gold.load - INFO - Upsert complete. New records successfully loaded
+2025-10-10 08:15:07,246 - pipeline.s_gold.silver_watermarks - INFO - Updating watermarks in S3...
+2025-10-10 08:15:07,248 - pipeline.s_gold.silver_watermarks - INFO - Reading watermarks from s3..
+2025-10-10 08:15:07,509 - pipeline.s_gold.silver_watermarks - WARNING - Watermarks not found. Initializing One. Details: 'body'
+2025-10-10 08:15:08,673 - pipeline.s_gold.silver_watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 08:23:21,305 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 08:23:21,313 - pipeline.s_gold.read_bucket - INFO - Reading movies.csv from movie-pipeline-silver bucket.
+2025-10-10 08:23:23,014 - pipeline.s_gold.read_bucket - INFO - Successfully read movies.csv into DataFrame. Shape: (1428, 5)
+2025-10-10 08:23:23,443 - pipeline.s_gold.load - INFO - Upsert complete. New records successfully loaded
+2025-10-10 08:23:23,450 - pipeline.s_gold.silver_watermarks - INFO - Updating watermarks in S3...
+2025-10-10 08:23:23,451 - pipeline.s_gold.silver_watermarks - INFO - Reading watermarks from s3..
+2025-10-10 08:23:24,212 - pipeline.s_gold.silver_watermarks - INFO - Watermarks updated successfully in S3.
+2025-10-10 08:41:50,324 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 08:41:50,327 - pipeline.s_gold.read_bucket - INFO - Reading ratings/2025-10.csv from movie-pipeline-silver bucket.
+2025-10-10 08:41:52,259 - pipeline.s_gold.read_bucket - ERROR - Error reading ratings/2025-10.csv from movie-pipeline-silver: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2025-10-10 09:24:39,383 - pipeline.s3_client - INFO - ✅ Successfully initialized S3 client.
+2025-10-10 09:24:39,385 - pipeline.s_gold.read_bucket - INFO - Reading ratings/2025-10.csv from movie-pipeline-silver bucket.
+2025-10-10 09:24:41,203 - pipeline.s_gold.read_bucket - ERROR - Error reading ratings/2025-10.csv from movie-pipeline-silver: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2025-10-10 09:24:41,205 - pipeline.s_gold.load - WARNING - Partition ratings/2025-10.csv not found. Skipping.
+2025-10-10 09:24:41,206 - pipeline.s_gold.load - WARNING - No ratings data found in selected partitions. Skipping load.

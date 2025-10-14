@@ -1,0 +1,28 @@
+[2025-10-11T04:44:53.413+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-10-11T04:44:53.470+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_flow.load_ratings manual__2025-10-09T12:27:01.233637+00:00 [queued]>
+[2025-10-11T04:44:53.485+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_flow.load_ratings manual__2025-10-09T12:27:01.233637+00:00 [queued]>
+[2025-10-11T04:44:53.487+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-10-11T04:44:53.506+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_ratings> on 2025-10-09 12:27:01.233637+00:00
+[2025-10-11T04:44:53.520+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=7356) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-10-11T04:44:53.520+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_flow', 'load_ratings', 'manual__2025-10-09T12:27:01.233637+00:00', '--job-id', '75', '--raw', '--subdir', 'DAGS_FOLDER/pipeline_dag.py', '--cfg-path', '/tmp/tmph9674vfi']
+[2025-10-11T04:44:53.522+0000] {standard_task_runner.py:64} INFO - Started process 7367 to run task
+[2025-10-11T04:44:53.523+0000] {standard_task_runner.py:91} INFO - Job 75: Subtask load_ratings
+[2025-10-11T04:44:53.601+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_flow.load_ratings manual__2025-10-09T12:27:01.233637+00:00 [running]> on host 321597a50810
+[2025-10-11T04:44:53.741+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='oluwaseyiogundimu10@gmail.com' AIRFLOW_CTX_DAG_OWNER='seyi' AIRFLOW_CTX_DAG_ID='pipeline_flow' AIRFLOW_CTX_TASK_ID='load_ratings' AIRFLOW_CTX_EXECUTION_DATE='2025-10-09T12:27:01.233637+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-10-09T12:27:01.233637+00:00'
+[2025-10-11T04:44:53.742+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-10-11T04:44:53.765+0000] {transform.py:90} INFO - Starting transformations for ratings..
+[2025-10-11T04:44:53.767+0000] {read_write_buckets.py:22} INFO - Reading ratings.csv from movie-pipeline-bronze bucket.
+[2025-10-11T04:44:53.980+0000] {s3_client.py:30} INFO - ✅ Successfully initialized S3 client.
+[2025-10-11T04:44:57.401+0000] {read_write_buckets.py:34} INFO - Successfully read ratings.csv into DataFrame. Shape: (100000, 4)
+[2025-10-11T04:44:57.454+0000] {transform.py:117} INFO - Weekly run: filtering 0 rating records from 2025-09-28 to 2025-10-05
+[2025-10-11T04:44:57.457+0000] {watermarks.py:25} INFO - Reading watermarks from S3 Bronze bucket...
+[2025-10-11T04:44:57.696+0000] {watermarks.py:30} INFO - Successfully read existing watermarks.
+[2025-10-11T04:44:57.699+0000] {transform.py:125} INFO - Applying watermark filter for ratings..
+[2025-10-11T04:44:57.705+0000] {transform.py:144} WARNING - No existing watermark for ratings. Proceeding without filter.
+[2025-10-11T04:44:57.709+0000] {transform.py:149} WARNING - No new ratings data to upload after watermark filtering. End
+[2025-10-11T04:44:57.712+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-10-11T04:44:57.713+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-10-11T04:44:57.738+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=pipeline_flow, task_id=load_ratings, run_id=manual__2025-10-09T12:27:01.233637+00:00, execution_date=20251009T122701, start_date=20251011T044453, end_date=20251011T044457
+[2025-10-11T04:44:57.804+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-10-11T04:44:57.838+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-10-11T04:44:57.841+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

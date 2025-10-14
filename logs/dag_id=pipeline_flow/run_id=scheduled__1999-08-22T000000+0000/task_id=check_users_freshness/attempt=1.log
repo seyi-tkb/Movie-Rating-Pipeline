@@ -1,0 +1,22 @@
+[2025-10-11T06:17:51.470+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-10-11T06:17:51.511+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_flow.check_users_freshness scheduled__1999-08-22T00:00:00+00:00 [queued]>
+[2025-10-11T06:17:51.521+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_flow.check_users_freshness scheduled__1999-08-22T00:00:00+00:00 [queued]>
+[2025-10-11T06:17:51.522+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-10-11T06:17:51.542+0000] {taskinstance.py:2330} INFO - Executing <Task(ShortCircuitOperator): check_users_freshness> on 1999-08-22 00:00:00+00:00
+[2025-10-11T06:17:51.555+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=11448) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-10-11T06:17:51.558+0000] {standard_task_runner.py:64} INFO - Started process 11461 to run task
+[2025-10-11T06:17:51.555+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_flow', 'check_users_freshness', 'scheduled__1999-08-22T00:00:00+00:00', '--job-id', '1119', '--raw', '--subdir', 'DAGS_FOLDER/pipeline_dag.py', '--cfg-path', '/tmp/tmpm5lcskfm']
+[2025-10-11T06:17:51.559+0000] {standard_task_runner.py:91} INFO - Job 1119: Subtask check_users_freshness
+[2025-10-11T06:17:51.623+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_flow.check_users_freshness scheduled__1999-08-22T00:00:00+00:00 [running]> on host 321597a50810
+[2025-10-11T06:17:51.748+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='oluwaseyiogundimu10@gmail.com' AIRFLOW_CTX_DAG_OWNER='seyi' AIRFLOW_CTX_DAG_ID='pipeline_flow' AIRFLOW_CTX_TASK_ID='check_users_freshness' AIRFLOW_CTX_EXECUTION_DATE='1999-08-22T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__1999-08-22T00:00:00+00:00'
+[2025-10-11T06:17:51.750+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-10-11T06:17:51.766+0000] {baseoperator.py:400} WARNING - ShortCircuitOperator.execute cannot be called outside TaskInstance!
+[2025-10-11T06:17:51.905+0000] {s3_client.py:30} INFO - ✅ Successfully initialized S3 client.
+[2025-10-11T06:17:52.698+0000] {logging_mixin.py:188} INFO - users.csv is fresh: 2025-10-11 06:17:50+00:00
+[2025-10-11T06:17:52.699+0000] {python.py:237} INFO - Done. Returned value was: True
+[2025-10-11T06:17:52.700+0000] {python.py:304} INFO - Condition result is True
+[2025-10-11T06:17:52.701+0000] {python.py:307} INFO - Proceeding with downstream tasks...
+[2025-10-11T06:17:52.702+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-10-11T06:17:52.739+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=pipeline_flow, task_id=check_users_freshness, run_id=scheduled__1999-08-22T00:00:00+00:00, execution_date=19990822T000000, start_date=20251011T061751, end_date=20251011T061752
+[2025-10-11T06:17:52.858+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-10-11T06:17:52.872+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,52 @@
+[2025-10-11T06:09:26.556+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-10-11T06:09:26.603+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_flow.to_bronze scheduled__1999-01-24T00:00:00+00:00 [queued]>
+[2025-10-11T06:09:26.616+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_flow.to_bronze scheduled__1999-01-24T00:00:00+00:00 [queued]>
+[2025-10-11T06:09:26.618+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-10-11T06:09:26.636+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): to_bronze> on 1999-01-24 00:00:00+00:00
+[2025-10-11T06:09:26.649+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=10313) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-10-11T06:09:26.651+0000] {standard_task_runner.py:64} INFO - Started process 10317 to run task
+[2025-10-11T06:09:26.650+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_flow', 'to_bronze', 'scheduled__1999-01-24T00:00:00+00:00', '--job-id', '759', '--raw', '--subdir', 'DAGS_FOLDER/pipeline_dag.py', '--cfg-path', '/tmp/tmp00ikesr3']
+[2025-10-11T06:09:26.654+0000] {standard_task_runner.py:91} INFO - Job 759: Subtask to_bronze
+[2025-10-11T06:09:26.730+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_flow.to_bronze scheduled__1999-01-24T00:00:00+00:00 [running]> on host 321597a50810
+[2025-10-11T06:09:26.880+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='oluwaseyiogundimu10@gmail.com' AIRFLOW_CTX_DAG_OWNER='seyi' AIRFLOW_CTX_DAG_ID='pipeline_flow' AIRFLOW_CTX_TASK_ID='to_bronze' AIRFLOW_CTX_EXECUTION_DATE='1999-01-24T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__1999-01-24T00:00:00+00:00'
+[2025-10-11T06:09:26.883+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-10-11T06:09:26.900+0000] {orchestration.py:16} INFO - Starting Bronze layer data pipeline...
+[2025-10-11T06:09:27.032+0000] {s3_client.py:30} INFO - ✅ Successfully initialized S3 client.
+[2025-10-11T06:09:27.033+0000] {ingest.py:26} INFO - Reading movies...
+[2025-10-11T06:09:30.948+0000] {ingest.py:31} INFO - Successfully read movies.
+[2025-10-11T06:09:30.950+0000] {ingest.py:26} INFO - Reading ratings...
+[2025-10-11T06:09:36.088+0000] {ingest.py:31} INFO - Successfully read ratings.
+[2025-10-11T06:09:36.089+0000] {ingest.py:26} INFO - Reading users...
+[2025-10-11T06:09:37.850+0000] {ingest.py:31} INFO - Successfully read users.
+[2025-10-11T06:09:37.852+0000] {orchestration.py:24} INFO - Successfully ingested raw data.
+[2025-10-11T06:09:37.857+0000] {validation.py:17} INFO - Validating columns for movies..
+[2025-10-11T06:09:37.859+0000] {validation.py:32} INFO - successfully validated movies's columns.
+[2025-10-11T06:09:37.861+0000] {validation.py:17} INFO - Validating columns for ratings..
+[2025-10-11T06:09:37.864+0000] {validation.py:32} INFO - successfully validated ratings's columns.
+[2025-10-11T06:09:37.868+0000] {validation.py:17} INFO - Validating columns for users..
+[2025-10-11T06:09:37.872+0000] {validation.py:32} INFO - successfully validated users's columns.
+[2025-10-11T06:09:37.881+0000] {validation.py:46} WARNING - movies has 4 missing values:
+release_date    1
+IMDb_URL        3
+dtype: int64
+[2025-10-11T06:09:37.885+0000] {validation.py:48} INFO - No missing values found in ratings.
+[2025-10-11T06:09:37.889+0000] {validation.py:48} INFO - No missing values found in users.
+[2025-10-11T06:09:37.891+0000] {orchestration.py:29} INFO - Data validation completed successfully.
+[2025-10-11T06:09:38.705+0000] {s3_client.py:55} INFO - Bucket 'movie-pipeline-bronze' already exists.
+[2025-10-11T06:09:38.707+0000] {upload.py:23} INFO - Starting movies upload to bronze bucket
+[2025-10-11T06:09:38.732+0000] {upload.py:31} INFO - Uploading movies.csv to S3 bucket movie-pipeline-bronze
+[2025-10-11T06:09:41.481+0000] {upload.py:40} INFO - Successfully uploaded movies.csv to S3 bucket movie-pipeline-bronze.
+[2025-10-11T06:09:41.482+0000] {upload.py:23} INFO - Starting ratings upload to bronze bucket
+[2025-10-11T06:09:41.708+0000] {upload.py:31} INFO - Uploading ratings.csv to S3 bucket movie-pipeline-bronze
+[2025-10-11T06:09:50.085+0000] {upload.py:40} INFO - Successfully uploaded ratings.csv to S3 bucket movie-pipeline-bronze.
+[2025-10-11T06:09:50.086+0000] {upload.py:23} INFO - Starting users upload to bronze bucket
+[2025-10-11T06:09:50.094+0000] {upload.py:31} INFO - Uploading users.csv to S3 bucket movie-pipeline-bronze
+[2025-10-11T06:09:50.638+0000] {upload.py:40} INFO - Successfully uploaded users.csv to S3 bucket movie-pipeline-bronze.
+[2025-10-11T06:09:50.641+0000] {orchestration.py:36} INFO - Data successfully uploaded to Bronze S3 bucket.
+[2025-10-11T06:09:50.642+0000] {orchestration.py:38} INFO - Bronze pipeline execution completed successfully!
+[2025-10-11T06:09:50.645+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-10-11T06:09:50.647+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-10-11T06:09:50.671+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=pipeline_flow, task_id=to_bronze, run_id=scheduled__1999-01-24T00:00:00+00:00, execution_date=19990124T000000, start_date=20251011T060926, end_date=20251011T060950
+[2025-10-11T06:09:50.713+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-10-11T06:09:50.774+0000] {taskinstance.py:3503} INFO - 3 downstream tasks scheduled from follow-on schedule check
+[2025-10-11T06:09:50.778+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

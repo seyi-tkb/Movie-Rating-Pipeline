@@ -1,0 +1,30 @@
+[2025-10-11T06:26:04.041+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-10-11T06:26:04.142+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline_flow.load_users_to_gold scheduled__2000-03-12T00:00:00+00:00 [queued]>
+[2025-10-11T06:26:04.175+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline_flow.load_users_to_gold scheduled__2000-03-12T00:00:00+00:00 [queued]>
+[2025-10-11T06:26:04.177+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2025-10-11T06:26:04.207+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_users_to_gold> on 2000-03-12 00:00:00+00:00
+[2025-10-11T06:26:04.234+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=12633) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-10-11T06:26:04.229+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'pipeline_flow', 'load_users_to_gold', 'scheduled__2000-03-12T00:00:00+00:00', '--job-id', '1487', '--raw', '--subdir', 'DAGS_FOLDER/pipeline_dag.py', '--cfg-path', '/tmp/tmpn10u0fsb']
+[2025-10-11T06:26:04.237+0000] {standard_task_runner.py:64} INFO - Started process 12645 to run task
+[2025-10-11T06:26:04.239+0000] {standard_task_runner.py:91} INFO - Job 1487: Subtask load_users_to_gold
+[2025-10-11T06:26:04.371+0000] {task_command.py:426} INFO - Running <TaskInstance: pipeline_flow.load_users_to_gold scheduled__2000-03-12T00:00:00+00:00 [running]> on host 321597a50810
+[2025-10-11T06:26:04.598+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='oluwaseyiogundimu10@gmail.com' AIRFLOW_CTX_DAG_OWNER='seyi' AIRFLOW_CTX_DAG_ID='pipeline_flow' AIRFLOW_CTX_TASK_ID='load_users_to_gold' AIRFLOW_CTX_EXECUTION_DATE='2000-03-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2000-03-12T00:00:00+00:00'
+[2025-10-11T06:26:04.601+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-10-11T06:26:04.909+0000] {s3_client.py:30} INFO - ✅ Successfully initialized S3 client.
+[2025-10-11T06:26:04.911+0000] {read_bucket.py:26} INFO - Reading users.csv from movie-pipeline-silver bucket.
+[2025-10-11T06:26:06.319+0000] {read_bucket.py:32} INFO - Successfully read users.csv into DataFrame. Shape: (943, 5)
+[2025-10-11T06:26:06.320+0000] {load.py:203} INFO - Starting load for users..
+[2025-10-11T06:26:06.322+0000] {connection.py:60} INFO - Writing stg_users to Postgres..
+[2025-10-11T06:26:06.323+0000] {connection.py:22} INFO - Successfully connected to Postgres.
+[2025-10-11T06:26:06.633+0000] {connection.py:66} INFO - Successfully inserted 943 records into stg_users.
+[2025-10-11T06:26:06.635+0000] {connection.py:22} INFO - Successfully connected to Postgres.
+[2025-10-11T06:26:06.747+0000] {load.py:213} INFO - User upsert complete. New and changed user records successfully processed.
+[2025-10-11T06:26:06.752+0000] {silver_watermarks.py:25} INFO - Reading watermarks from s3..
+[2025-10-11T06:26:08.525+0000] {silver_watermarks.py:55} INFO - Updating watermarks in S3...
+[2025-10-11T06:26:09.278+0000] {silver_watermarks.py:72} INFO - Watermarks updated successfully in S3.
+[2025-10-11T06:26:09.280+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-10-11T06:26:09.282+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-10-11T06:26:09.305+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=pipeline_flow, task_id=load_users_to_gold, run_id=scheduled__2000-03-12T00:00:00+00:00, execution_date=20000312T000000, start_date=20251011T062604, end_date=20251011T062609
+[2025-10-11T06:26:09.677+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2025-10-11T06:26:09.724+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-10-11T06:26:09.732+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
