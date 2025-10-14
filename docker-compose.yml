@@ -9,15 +9,15 @@ x-airflow-common:
     AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     _PIP_ADDITIONAL_REQUIREMENTS: "pandas sqlalchemy"
 
-    # email env variables
+    # email env variables (loaded from .env)
       # AIRFLOW__EMAIL__EMAIL_BACKEND: airflow.utils.email.send_email_smtp
-    AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
-    AIRFLOW__SMTP__START_TLS: True
-    AIRFLOW__SMTP__SMTP_SSL: False
-    AIRFLOW__SMTP__SMTP_USER: marvee006@gmail.com
-    AIRFLOW__SMTP__SMTP_PASSWORD: grkwypgspunjvsnq
-    AIRFLOW__SMTP__SMTP_PORT: 587
-    AIRFLOW__SMTP__SMTP_MAIL_FROM: marvee006@gmail.com
+    AIRFLOW__SMTP__SMTP_HOST: ${AIRFLOW__SMTP__SMTP_HOST}
+    AIRFLOW__SMTP__START_TLS: ${AIRFLOW__SMTP__START_TLS}
+    AIRFLOW__SMTP__SMTP_SSL: ${AIRFLOW__SMTP__SMTP_SSL}
+    AIRFLOW__SMTP__SMTP_USER: ${AIRFLOW__SMTP__SMTP_USER}
+    AIRFLOW__SMTP__SMTP_PASSWORD: ${AIRFLOW__SMTP__SMTP_PASSWORD}
+    AIRFLOW__SMTP__SMTP_PORT: ${AIRFLOW__SMTP__SMTP_PORT}
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: ${AIRFLOW__SMTP__SMTP_MAIL_FROM}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./pipeline:/opt/airflow/pipeline
