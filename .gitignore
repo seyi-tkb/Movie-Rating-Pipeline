@@ -10,8 +10,12 @@ __pycache__/
 .idea/
 node_modules/
 dist/
+
 airflow.cfg.env
-.environment_copy
+airflow.cfg
+config/airflow.cfg
+airflow-webserver.pid
+webserver_config.py
 
 pipeline/z_extras/
 
