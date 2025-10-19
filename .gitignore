@@ -1,6 +1,7 @@
 # Ignore environment and secrets
 .env
 .env.local
+.environment_copy
 # Ignore common local files
 __pycache__/
 *.pyc
@@ -9,4 +10,5 @@ __pycache__/
 .idea/
 node_modules/
 dist/
-airflow.cfg
+airflow.cfg.env
+.environment_copy
