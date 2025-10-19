@@ -14,3 +14,6 @@ airflow.cfg.env
 .environment_copy
 
 pipeline/z_extras/
+
+*.log
+logs/
