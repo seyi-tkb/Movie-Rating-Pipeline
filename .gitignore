@@ -9,3 +9,4 @@ __pycache__/
 .idea/
 node_modules/
 dist/
+airflow.cfg
