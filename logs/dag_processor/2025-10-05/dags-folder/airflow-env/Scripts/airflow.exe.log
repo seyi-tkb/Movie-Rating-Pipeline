@@ -1,2 +1,0 @@
-{"timestamp":"2025-10-05T20:36:30.658276Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/airflow-env/Scripts/airflow.exe","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
-{"timestamp":"2025-10-05T20:36:30.712972Z","level":"info","event":"File /opt/airflow/dags/airflow-env/Scripts/airflow.exe:__main__.py assumed to contain no DAGs. Skipping.","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":464}
