@@ -20,4 +20,4 @@ webserver_config.py
 pipeline/z_extras/
 
 *.log
-logs/
+logs/dags/test_dags.py
