@@ -18,7 +18,7 @@ airflow-webserver.pid
 webserver_config.py
 
 pipeline/z_extras/
-dags/test_dags.py
+dags/test_dag.py
 
 *.log
 logs/
