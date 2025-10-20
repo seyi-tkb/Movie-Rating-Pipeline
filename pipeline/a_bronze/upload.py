@@ -8,6 +8,7 @@ from config import S3_BUCKET_BRONZE
 # initialize logger
 logger = get_logger(__name__)
 
+
 def upload_to_bronze(s3_client, dataframes: dict):
     """
     Uploads dataframes to a specified S3 Bronze bucket.
@@ -24,7 +25,7 @@ def upload_to_bronze(s3_client, dataframes: dict):
 
             # Convert DataFrame to in-memory buffer
             csv_buffer = io.BytesIO()
-            df.to_csv(csv_buffer, index=False) # puts content inside buffer
+            df.to_csv(csv_buffer, index=False)  # puts content inside buffer
             csv_buffer.seek(0)
 
             object_name = f"{file}.csv"  # prefix ensures Bronze folder in bucket
@@ -32,13 +33,12 @@ def upload_to_bronze(s3_client, dataframes: dict):
 
             # Upload the file to S3
             client.put_object(
-                Bucket=S3_BUCKET_BRONZE,
-                Key=object_name,
-                Body=csv_buffer.getvalue()
+                Bucket=S3_BUCKET_BRONZE, Key=object_name, Body=csv_buffer.getvalue()
             )
 
-            logger.info(f"Successfully uploaded {object_name} to S3 bucket {S3_BUCKET_BRONZE}.")
+            logger.info(
+                f"Successfully uploaded {object_name} to S3 bucket {S3_BUCKET_BRONZE}."
+            )
 
         except Exception as e:
             logger.error(f"Failed to upload {file}. Error: {e}")
-

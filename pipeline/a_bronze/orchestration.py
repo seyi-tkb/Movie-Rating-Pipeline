@@ -12,9 +12,9 @@ logger = get_logger(__name__)
 
 def source_to_bronze():
     """Main function to orchestrate the data pipeline with error handling."""
-    
+
     logger.info("Starting Bronze layer data pipeline...")
-    
+
     # Initialize AWS S3 client
     client = initialize_s3_client()
 
@@ -36,10 +36,11 @@ def source_to_bronze():
         logger.info("Data successfully uploaded to Bronze S3 bucket.")
 
         logger.info("Bronze pipeline execution completed successfully!")
-    
+
     except Exception as e:
         logger.error(f"Pipeline execution failed. Error: {str(e)}", exc_info=True)
         raise
+
 
 if __name__ == "__main__":
     source_to_bronze()

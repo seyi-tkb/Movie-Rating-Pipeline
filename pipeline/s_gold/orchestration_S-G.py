@@ -1,7 +1,13 @@
-from pipeline.s_gold.load import load_users_df, load_ratings_df, load_movie_df, check_tables
+from pipeline.s_gold.load import (
+    load_users_df,
+    load_ratings_df,
+    load_movie_df,
+    check_tables,
+)
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
+
 
 def silver_to_gold():
     """
@@ -26,6 +32,7 @@ def silver_to_gold():
 
     except Exception as e:
         logger.error(f"Pipeline failed: {str(e)}", exc_info=True)
+
 
 if __name__ == "__main__":
     silver_to_gold()

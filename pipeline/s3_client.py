@@ -10,6 +10,7 @@ logger = get_logger(__name__)
 
 _client = None  # Global cache. everytime below is called, check if one already exists
 
+
 def initialize_s3_client():
     """
     Initialize and return a boto3 S3 client instance.

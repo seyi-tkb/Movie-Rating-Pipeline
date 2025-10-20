@@ -9,6 +9,7 @@ from botocore.exceptions import ClientError
 # initialize logger
 logger = get_logger(__name__)
 
+
 # function to read watermarks
 def read_watermarks() -> pd.DataFrame:
     """
@@ -32,7 +33,9 @@ def read_watermarks() -> pd.DataFrame:
 
     except ClientError as e:
         # If the file doesn't exist, return empty DataFrame
-        logger.warning(f"Watermarks not found in S3. Initializing new one. Details: {e}")
+        logger.warning(
+            f"Watermarks not found in S3. Initializing new one. Details: {e}"
+        )
         columns = ["dataset_name", "max_value", "records_loaded", "processing_time"]
         return pd.DataFrame(columns=columns)
 
@@ -56,7 +59,14 @@ def update_watermarks(new_watermark: dict):
             old_watermarks = read_watermarks()
         except Exception:
             logger.warning("No existing watermark file. Creating a new one.")
-            old_watermarks = pd.DataFrame(columns=["dataset_name", "max_value", "records_loaded", "processing_time"])
+            old_watermarks = pd.DataFrame(
+                columns=[
+                    "dataset_name",
+                    "max_value",
+                    "records_loaded",
+                    "processing_time",
+                ]
+            )
 
         # add the new row
         new_row = pd.DataFrame([new_watermark])
@@ -71,13 +81,14 @@ def update_watermarks(new_watermark: dict):
             Bucket=S3_BUCKET_BRONZE,
             Key=WATERMARKS_PATH,
             Body=buffer.getvalue(),
-            ContentType="application/csv"
+            ContentType="application/csv",
         )
         logger.info("Watermarks updated successfully in S3.")
 
     except Exception as e:
         logger.error(f"Failed to update watermarks: {e}")
         raise
+
 
 if __name__ == "__main__":
     pass

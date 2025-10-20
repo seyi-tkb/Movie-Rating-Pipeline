@@ -9,6 +9,7 @@ from datetime import datetime
 # initialize logger
 logger = get_logger(__name__)
 
+
 # function to read watermarks
 def read_silver_watermarks():
     """
@@ -17,20 +18,21 @@ def read_silver_watermarks():
     Return:
        dataframe (pd.DataFrame): watermark file content as a dataframe. A structured but empty DataFrame if no watermark file exists.
     """
-    
+
     # initialize s3 Client
     client = initialize_s3_client()
 
     try:
         logger.info("Reading watermarks from s3..")
-        response = client.get_object(Bucket= S3_BUCKET_SILVER, Key= WATERMARKS_PATH)
+        response = client.get_object(Bucket=S3_BUCKET_SILVER, Key=WATERMARKS_PATH)
         watermarks_df = pd.read_csv(BytesIO(response["Body"].read()))
         return watermarks_df
-    
+
     except Exception as e:
         logger.warning(f"Watermarks not found. Initializing One. Details: {e}")
-        columns = ['dataset_name', 'max_value', 'records_loaded', 'processing_time']
+        columns = ["dataset_name", "max_value", "records_loaded", "processing_time"]
         return pd.DataFrame(columns=columns)
+
 
 # function to write to watermarks
 def update_silver_watermarks(new_watermark: dict):
@@ -40,7 +42,7 @@ def update_silver_watermarks(new_watermark: dict):
     Parameters:
          new_watermark (dict): {field_name: watermark_value}
     """
-    
+
     # initialize s3 Client
     client = initialize_s3_client()
 
@@ -50,13 +52,20 @@ def update_silver_watermarks(new_watermark: dict):
             old_watermarks = read_silver_watermarks()
         except Exception:
             logger.warning("No existing watermark file. Creating a new one.")
-            old_watermarks = pd.DataFrame(columns=["dataset_name", "max_value", "records_loaded", "processing_time"])
+            old_watermarks = pd.DataFrame(
+                columns=[
+                    "dataset_name",
+                    "max_value",
+                    "records_loaded",
+                    "processing_time",
+                ]
+            )
 
         logger.info("Updating watermarks in S3...")
-        
+
         # add the new row
         new_row = pd.DataFrame([new_watermark])
-            # helps with not appending empty dfs
+        # helps with not appending empty dfs
         if old_watermarks.empty:
             updated_watermark = new_row
         else:
@@ -71,7 +80,7 @@ def update_silver_watermarks(new_watermark: dict):
             Bucket=S3_BUCKET_SILVER,
             Key=WATERMARKS_PATH,
             Body=buffer.getvalue(),
-            ContentType="application/csv"
+            ContentType="application/csv",
         )
         logger.info("Watermarks updated successfully in S3.")
 

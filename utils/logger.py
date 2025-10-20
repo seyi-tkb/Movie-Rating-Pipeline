@@ -2,10 +2,11 @@ import logging
 import os
 from datetime import datetime
 
+
 def get_logger(name: str, log_level=logging.INFO) -> logging.Logger:
     """
     Creates and returns a logger instance with console and file handlers.
-    
+
     Args:
         name (str): The name of the logger, __name__.
         log_level (int): Logging level, default is INFO.
@@ -26,14 +27,14 @@ def get_logger(name: str, log_level=logging.INFO) -> logging.Logger:
 
     # prevent duplicating of logging
     if not logger.handlers:
-        
+
         # Create formatter
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
 
         # Console Handler
-        console_handler = logging.StreamHandler()       
+        console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
 
@@ -43,5 +44,3 @@ def get_logger(name: str, log_level=logging.INFO) -> logging.Logger:
         logger.addHandler(file_handler)
 
     return logger
-
-

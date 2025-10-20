@@ -6,7 +6,8 @@ from sqlalchemy import create_engine, text
 # initializing logger
 logger = logging.getLogger(__name__)
 
-#function to connect to database
+
+# function to connect to database
 def get_db_connection():
     """
     Establishes a SQLAlchemy engine connection to a PostgreSQL database using credentials from config.
@@ -21,7 +22,7 @@ def get_db_connection():
         )
         logger.info("Successfully connected to Postgres.")
         return engine
-    
+
     except Exception as e:
         logger.error(f"PostgreSQL connection error: {str(e)}")
         raise
@@ -40,7 +41,7 @@ def execute_sql(sql: str, text_name: str):
     """
     try:
         engine = get_db_connection()
-        with engine.begin() as conn: # begin ensures commit. connect has to be closed to commit
+        with engine.begin() as conn:  # begin ensures commit. connect has to be closed to commit
             conn.execute(text(sql))
         logger.info(f"Ensured '{text_name}' in Postgres.")
 
@@ -50,7 +51,9 @@ def execute_sql(sql: str, text_name: str):
 
 
 # function to upload to postgres
-def write_to_postgres(df: pd.DataFrame, table_name: str, mode: str = "append", schema: str = "stg"): #append but table is always truncated so its clean. "replace" and to_sql cause type issues
+def write_to_postgres(
+    df: pd.DataFrame, table_name: str, mode: str = "append", schema: str = "stg"
+):  # append but table is always truncated so its clean. "replace" and to_sql cause type issues
     """
     Writes a pandas DataFrame to a PostgreSQL table.
 
@@ -62,16 +65,25 @@ def write_to_postgres(df: pd.DataFrame, table_name: str, mode: str = "append", s
     """
 
     logger.info(f"Writing {df.shape[0]} {table_name} records to Postgres..")
-    
+
     try:
         engine = get_db_connection()
 
-        df.to_sql(name=table_name, schema= schema, con=engine, if_exists=mode, index=False, method='multi', chunksize=1000)
+        df.to_sql(
+            name=table_name,
+            schema=schema,
+            con=engine,
+            if_exists=mode,
+            index=False,
+            method="multi",
+            chunksize=1000,
+        )
 
         logger.info(f"Successfully inserted {len(df)} records into {table_name}.")
     except Exception as e:
         logger.exception(f"Error during df.to_sql for {table_name}: {str(e)}")
         raise
+
 
 if __name__ == "__main__":
     pass

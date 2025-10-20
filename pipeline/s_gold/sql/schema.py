@@ -1,4 +1,3 @@
-
 # python
 staging_schema_sql = """
 CREATE SCHEMA IF NOT EXISTS stg;
@@ -139,7 +138,7 @@ JOIN change_table c ON s.user_id = c.user_id;
 TRUNCATE table stg.stg_users;
 """
 
-upsert_ratings= """
+upsert_ratings = """
 
 -- Upsert
 INSERT INTO prod.ratings (user_id, item_id, rating, timestamp)
@@ -158,13 +157,13 @@ SELECT prod.ensure_partitions_for_staging();
 
 # question. to detect changes in SCDs or dimensions generally early on, do you do an upsert before even lifting from the initial database(actual raw before bronze/staging)
 # the reason being. if it isn't a full load everytime for the dimensions
-        # you will only append with  watermarkks based on ids that havent beene loaded before
-        # and that means those that have been loaded before don't get to gold, even if they are update in the raw intial file or systems
+# you will only append with  watermarkks based on ids that havent beene loaded before
+# and that means those that have been loaded before don't get to gold, even if they are update in the raw intial file or systems
 
 
 # found my answer, create a "last_updated" column on every dimension that shows when the dimension was updated
-    # watermarks is then based on that and last load
-    # this ensure every change moves upstream.
+# watermarks is then based on that and last load
+# this ensure every change moves upstream.
 
 
 # add last_updated, batch_id to dimensions from P1

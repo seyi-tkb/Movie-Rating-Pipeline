@@ -28,18 +28,18 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pytest flake8 black
 
-      # Format check with Black
-      - name: Check code formatting with Black
-        run: |
-          echo "Checking code formatting..."
-          black --check .
-
       # Lint with flake8
       - name: Run flake8
         run: |
           echo "Running flake8..."
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+
+      # Format check with Black
+      - name: Check code formatting with Black
+        run: |
+          echo "Checking code formatting..."
+          black --check .
 
       # Run tests
       - name: Run initial dumnmy test
