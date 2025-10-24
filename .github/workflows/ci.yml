@@ -28,7 +28,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pytest flake8 black
 
-      # 🧩 Fix binary incompatibility between NumPy and Pandas
+      # Fix binary incompatibility between NumPy and Pandas
       - name: Reinstall numpy and pandas cleanly
         run: |
           echo "Reinstalling numpy and pandas to prevent binary mismatch..."
@@ -52,3 +52,21 @@ jobs:
         run: |
           echo "Running tests..."
           pytest -v --maxfail=1 --disable-warnings
+
+      # ✅ Push to development branch if all tests pass
+      - name: Push to development branch
+        if: success()  # Only runs if all previous steps succeed
+        run: |
+          echo "Pushing latest main changes to dev..."
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # Fetch and checkout development branch
+          git fetch origin
+          git checkout development || git checkout -b dev
+
+          # Merge main into development (fast-forward)
+          git merge --ff-only main || echo "Merge not possible, manual review required."
+
+          # Push the updated development branch
+          git push origin dev

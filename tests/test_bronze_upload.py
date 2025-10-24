@@ -104,6 +104,7 @@ def test_upload_to_bronze_partial(caplog):
 @mock_aws
 # spins up fake versions of AWS services
 # works on all boto3 calls in test
+@patch("pipeline.a_bronze.upload.S3_BUCKET_BRONZE", "movie-pipeline-bronze")
 def test_upload_to_bronze_integration():
     """Test uploading a dataframe to a mocked S3 bucket."""
     s3 = boto3.client("s3", region_name="us-east-1")
