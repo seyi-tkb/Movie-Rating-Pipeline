@@ -4,6 +4,8 @@
 .environment_copy
 # Ignore common local files
 __pycache__/
+**/__pycache__/
+
 *.pyc
 *.log
 .vscode/

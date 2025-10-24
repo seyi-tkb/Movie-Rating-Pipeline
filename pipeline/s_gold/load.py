@@ -42,7 +42,7 @@ def check_tables():
 
         for table_name, sql_str in table_dict.items():
             execute_sql(sql_str, table_name)
-        logger.info(f"Tables ensured.")
+        logger.info("Tables ensured.")
     except Exception as e:
         logger.error(f"Pipeline failed: {str(e)}", exc_info=True)
 
