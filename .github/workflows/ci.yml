@@ -28,6 +28,12 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pytest flake8 black
 
+      # 🧩 Fix binary incompatibility between NumPy and Pandas
+      - name: Reinstall numpy and pandas cleanly
+        run: |
+          echo "Reinstalling numpy and pandas to prevent binary mismatch..."
+          pip install --upgrade --force-reinstall numpy pandas
+
       # Lint with flake8
       - name: Run flake8
         run: |
@@ -42,7 +48,7 @@ jobs:
           black --check .
 
       # Run tests
-      - name: Run initial dumnmy test
+      - name: Run pytest
         run: |
           echo "Running tests..."
           pytest -v --maxfail=1 --disable-warnings
