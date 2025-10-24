@@ -16,6 +16,7 @@ from pipeline.a_bronze.orchestration import source_to_bronze
 
 
 @pytest.mark.unit
+@patch("pipeline.a_bronze.upload.S3_BUCKET_BRONZE", "movie-pipeline-bronze")
 def test_upload_to_bronze_success():
     """
     Test that upload_to_bronze successfully uploads a DataFrame to S3.
@@ -42,6 +43,7 @@ def test_upload_to_bronze_success():
 
 
 @pytest.mark.unit
+@patch("pipeline.a_bronze.upload.S3_BUCKET_BRONZE", "movie-pipeline-bronze")
 def test_upload_to_bronze_failure(caplog):
     """
     Test that upload_to_bronze logs an error when S3 upload fails.
@@ -67,6 +69,7 @@ def test_upload_to_bronze_failure(caplog):
 
 
 @pytest.mark.unit
+@patch("pipeline.a_bronze.upload.S3_BUCKET_BRONZE", "movie-pipeline-bronze")
 def test_upload_to_bronze_partial(caplog):
     """
     Test that upload_to_bronze handles partial failures correctly.
