@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -53,20 +57,16 @@ jobs:
           echo "Running tests..."
           pytest -v --maxfail=1 --disable-warnings
 
-      # ✅ Push to development branch if all tests pass
-      - name: Push to development branch
-        if: success()  # Only runs if all previous steps succeed
-        run: |
-          echo "Pushing latest main changes to dev..."
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          # Fetch and checkout development branch
-          git fetch origin
-          git checkout development || git checkout -b dev
-
-          # Merge main into development (fast-forward)
-          git merge --ff-only main || echo "Merge not possible, manual review required."
-
-          # Push the updated development branch
-          git push origin dev
+      # Create pull request to development branch if all tests pass
+      - name: Create Pull Request to dev
+        if: success()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: dev-auto-sync
+          base: dev
+          title: "CI: Auto-sync main → development"
+          body: |
+            This PR was automatically created by GitHub Actions after successful tests.
+            It merges the latest changes from **main** into **dev**.
+          commit-message: "CI: Auto-sync main → development"
