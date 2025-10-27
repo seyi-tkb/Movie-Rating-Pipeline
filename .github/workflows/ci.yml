@@ -2,9 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+    branches: [main]
 
 permissions:
   contents: write
@@ -60,14 +58,12 @@ jobs:
           pytest -v --maxfail=1 --disable-warnings
 
       # Create pull request to development branch if all tests pass
-            # Create Pull Request to development branch if all tests pass
       - name: Create Pull Request to dev
-        if: ${{ success() }}
-        uses: peter-evans/create-pull-request@v6
+        if: success()  # only runs if previous steps passed
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: dev
-          branch: main
-          title: "Sync: main → dev"
-          body: |
-            Automated PR from main to dev after successful CI.
+          source_branch: main
+          destination_branch: dev
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: "Sync: main → dev"
+          pr_body: "Automated PR from main to dev after successful CI"
