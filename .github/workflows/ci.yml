@@ -65,7 +65,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: staging-auto-pr
-          delete-branch: true     # close old staging-auto-pr
+          delete-branch: false     # close old staging-auto-pr
           branch-suffix: timestamp
           title: "Sync: staging → main"
           body: |
@@ -73,3 +73,11 @@ jobs:
             This PR was created after successful CI checks.  
             Please review and merge when ready.
           commit-message: "ci: auto-sync staging → main after successful tests"
+          draft: false
+          labels: "auto-pr"
+
+      - name: Debug Branch Differences
+        run: |
+          echo "==> Checking branch differences between staging and main..."
+          git fetch origin main staging
+          git log origin/main..origin/staging --oneline || echo "No commits ahead of main"
