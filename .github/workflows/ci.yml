@@ -77,8 +77,8 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          base: main
-          branch: staging-auto-pr
+          base: origin/main
+          branch: origin/staging
           delete-branch: false     # close old staging-auto-pr
           title: "Sync: staging → main"
           body: |
