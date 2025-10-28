@@ -1,0 +1,56 @@
+name: CI Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+        - completed
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  checks: write
+
+jobs:
+  create-pr:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+        # Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+        
+        # 
+      - name: Fetch branches
+        run: |
+          git fetch origin main staging
+          echo "==> Checking diff between staging and main..."
+          git log origin/main..origin/staging --oneline || echo "No commits ahead of main" 
+        
+        # Create pull request to main branch if all tests pass
+      - name: Create Pull Request to main
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: staging
+          title: "Sync: staging → main"
+          body: |
+            Automated pull request from **staging** into **main**  
+            This PR was created after successful CI checks.  
+            Please review and merge when ready.
+          commit-message: "ci: auto-sync staging → main after successful tests"
+          draft: false
+          labels: "auto-pr"
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: seyi-tkb <105808404+seyi-tkb@users.noreply.github.com>
+
+      - name: Debug Branch Differences
+        run: |
+          echo "==> Checking branch differences between staging and main..."
+          git fetch origin main staging
+          git log origin/main..origin/staging --oneline || echo "No commits ahead of main"
