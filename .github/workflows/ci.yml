@@ -69,7 +69,7 @@ jobs:
         run: |
           git fetch origin 
           git checkout staging
-          git reser --hard origin/staging
+          git reset --hard origin/staging
 
         # Create pull request to main branch if all tests pass
       - name: Create Pull Request to main
