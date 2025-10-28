@@ -65,6 +65,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: dev
           branch: stage-auto-pr
-          title: "Sync: main → dev"
+          title: "Sync: stage → dev"
           body: |
             Automated PR from stage into dev after successful CI.
