@@ -1,8 +1,8 @@
-name: Create-PR
+name: Create_PR
 
 on:
   workflow_run:
-    workflows: ["CI Pipeline"]
+    workflows: ["CI_workflow"]
     types:
         - completed
 
