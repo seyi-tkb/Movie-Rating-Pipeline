@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [stage]
+    branches: [staging]
 
 permissions:
   contents: write
@@ -57,14 +57,19 @@ jobs:
           echo "Running tests..."
           pytest -v --maxfail=1 --disable-warnings
 
-      # Create pull request to development branch if all tests pass
-      - name: Create Pull Request to dev
+      # Create pull request to main branch if all tests pass
+      - name: Create Pull Request to main
         if: ${{ success() }}
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          base: dev
-          branch: stage-auto-pr
-          title: "Sync: stage → dev"
+          base: main
+          branch: staging-auto-pr
+          delete-branch: true     # close old staging-auto-pr
+          branch-suffix: timestamp
+          title: "Sync: staging → main"
           body: |
-            Automated PR from stage into dev after successful CI.
+            Automated pull request from **staging** into **main**  
+            This PR was created after successful CI checks.  
+            Please review and merge when ready.
+          commit-message: "ci: auto-sync staging → main after successful tests"
