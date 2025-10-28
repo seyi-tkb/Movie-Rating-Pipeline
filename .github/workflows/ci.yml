@@ -64,7 +64,13 @@ jobs:
           git fetch origin
           git diff origin/staging..origin/main --stat
 
-      # Create pull request to main branch if all tests pass
+      # Ensure we are on the latest remote staging before PR creation
+      - name: Ensure we are on latest staging
+        run: |
+          git fetch origin staging
+          git checkout origin/staging
+
+        # Create pull request to main branch if all tests pass
       - name: Create Pull Request to main
         if: ${{ success() }}
         uses: peter-evans/create-pull-request@v6
@@ -81,6 +87,8 @@ jobs:
           commit-message: "ci: auto-sync staging → main after successful tests"
           draft: false
           labels: "auto-pr"
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: seyi-tkb <105808404+seyi-tkb@users.noreply.github.com>
 
       - name: Debug Branch Differences
         run: |
