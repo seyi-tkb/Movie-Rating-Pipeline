@@ -7,6 +7,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
+  checks: write
 
 jobs:
   build-and-test:
@@ -57,6 +59,11 @@ jobs:
           echo "Running tests..."
           pytest -v --maxfail=1 --disable-warnings
 
+      - name: Show diff between main and staging
+        run: |
+          git fetch origin
+          git diff origin/staging..origin/main --stat
+
       # Create pull request to main branch if all tests pass
       - name: Create Pull Request to main
         if: ${{ success() }}
@@ -66,7 +73,6 @@ jobs:
           base: main
           branch: staging-auto-pr
           delete-branch: false     # close old staging-auto-pr
-          branch-suffix: timestamp
           title: "Sync: staging → main"
           body: |
             Automated pull request from **staging** into **main**  
