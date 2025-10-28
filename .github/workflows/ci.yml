@@ -67,8 +67,9 @@ jobs:
       # Ensure we are on the latest remote staging before PR creation
       - name: Ensure we are on latest staging
         run: |
-          git fetch origin staging
-          git checkout origin/staging
+          git fetch origin 
+          git checkout staging
+          git reser --hard origin/staging
 
         # Create pull request to main branch if all tests pass
       - name: Create Pull Request to main
