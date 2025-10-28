@@ -64,13 +64,6 @@ jobs:
           git fetch origin
           git diff origin/staging..origin/main --stat
 
-      # Ensure we are on the latest remote staging before PR creation
-      - name: Ensure we are on latest staging
-        run: |
-          git fetch origin 
-          git checkout staging
-          git reset --hard origin/staging
-
         # Create pull request to main branch if all tests pass
       - name: Create Pull Request to main
         if: ${{ success() }}
@@ -78,7 +71,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          head: staging
+          branch: staging
           title: "Sync: staging → main"
           body: |
             Automated pull request from **staging** into **main**  
