@@ -59,6 +59,7 @@ jobs:
           echo "Running tests..."
           pytest -v --maxfail=1 --disable-warnings
 
+      # verify difference
       - name: Show diff between main and staging
         run: |
           git fetch origin
@@ -69,19 +70,11 @@ jobs:
         if: ${{ success() }}
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: main
-          branch: staging
-          title: "Sync: staging → main"
-          body: |
-            Automated pull request from **staging** into **main**  
-            This PR was created after successful CI checks.  
-            Please review and merge when ready.
-          commit-message: "ci: auto-sync staging → main after successful tests"
-          draft: false
-          labels: "auto-pr"
-          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: seyi-tkb <105808404+seyi-tkb@users.noreply.github.com>
+            title: "Force Sync: staging → main"
+            body: "This PR was created for debugging purposes even if no diff is found."
+            commit-message: "ci: force PR debug"
+            base: main
+            branch: staging
 
       - name: Debug Branch Differences
         run: |
