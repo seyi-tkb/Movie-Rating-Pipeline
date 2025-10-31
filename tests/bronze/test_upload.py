@@ -19,7 +19,7 @@ from pipeline.a_bronze.orchestration import source_to_bronze
 @patch("pipeline.a_bronze.upload.S3_BUCKET_BRONZE", "movie-pipeline-bronze")
 def test_upload_to_bronze_success():
     """
-    Test that upload_to_bronze successfully uploads a DataFrame to S3.
+    Test that `upload_to_bronze` successfully uploads a DataFrame to S3.
     """
 
     # Create a mock S3 client and patch the initializer
