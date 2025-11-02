@@ -241,43 +241,47 @@ def prepare_users_df():
     Transforms and ingests ratings data from the bronze layer to the silver layer.
     """
 
-    # read from bronze
-    df = read_file(S3_BUCKET_BRONZE, "users.csv")
+    try:
+        # read from bronze
+        df = read_file(S3_BUCKET_BRONZE, "users.csv")
 
-    logger.info("Starting transformations for users..")
+        logger.info("Starting transformations for users..")
 
-    # standardize column names
-    df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
+        # standardize column names
+        df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
 
-    # drop users without user_id
-    df = df.dropna(subset=["user_id"])
+        # drop users without user_id
+        df = df.dropna(subset=["user_id"])
 
-    # drop duplicates
-    df = df.drop_duplicates()
+        # drop duplicates
+        df = df.drop_duplicates()
 
-    # clean string fields: whitespaces and case
-    df["gender"] = df["gender"].str.strip().str.upper()
-    df["occupation"] = df["occupation"].str.strip().str.title()
-    df["zip_code"] = df["zip_code"].astype(str).str.strip()
+        # clean string fields: whitespaces and case
+        df["gender"] = df["gender"].str.strip().str.upper()
+        df["occupation"] = df["occupation"].str.strip().str.title()
+        df["zip_code"] = df["zip_code"].astype(str).str.strip()
 
-    # final shape logging
-    logger.info(f"Users data cleaned with {df.shape[0]} records")
+        # final shape logging
+        logger.info(f"Users data cleaned with {df.shape[0]} records")
 
-    # upload to silver
-    write_to_silver(df, "users.csv")
+        # upload to silver
+        write_to_silver(df, "users.csv")
 
-    # update the watermark with the new details
-    if not df.empty:
-        latest_max_value = df["user_id"].max()
-        data = {
-            "dataset_name": "users",
-            "max_value": latest_max_value,
-            "records_loaded": df.shape[0],
-            "processing_time": pd.Timestamp.now(),
-        }
+        # update the watermark with the new details
+        if not df.empty:
+            latest_max_value = df["user_id"].max()
+            data = {
+                "dataset_name": "users",
+                "max_value": latest_max_value,
+                "records_loaded": df.shape[0],
+                "processing_time": pd.Timestamp.now(),
+            }
 
-        update_watermarks(data)
+            update_watermarks(data)
 
+    except Exception as e:
+        logger.error(f"prepare_user_df failed: {e}")
+        raise
 
 if __name__ == "__main__":
     pass

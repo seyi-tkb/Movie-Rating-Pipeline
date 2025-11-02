@@ -16,6 +16,19 @@ def movie_data():
     )
 
 @pytest.fixture
+def user_data():
+    """Simulated Bronze CSV user data."""
+    return (
+        "user_id,age,gender,occupation,zip_code\n"
+        "1,24,M,student,10001\n"
+        "2,35,F,engineer,94105\n"
+        "3,42,M,artist,60614\n"
+        "4,29,F,doctor,30303\n"
+        "5,51,M,retired,75201\n"
+        ",38,F,teacher,02139\n"
+    )
+
+@pytest.fixture
 @mock_aws
 def s3_mock_env():
     """Creates a fake S3 environment with both Bronze and Silver buckets."""
