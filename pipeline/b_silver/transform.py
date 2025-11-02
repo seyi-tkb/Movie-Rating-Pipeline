@@ -24,58 +24,62 @@ def prepare_movie_df(pipeline_start, **kwargs: dict):
             - execution_date (datetime): The logical start of the DAG run.
     """
 
-    logger.info("Starting transformations for movie data..")
+    
+    try:
+        logger.info("Starting transformations for movie data..")
 
-    # Get execution window
-    exec_date = kwargs["data_interval_start"]  # beginning of DAG run window
+        # Get execution window
+        exec_date = kwargs["data_interval_end"]
 
-    # read from bronze
-    df = read_file(S3_BUCKET_BRONZE, "movies.csv")
-    # print("Executuion date is:", exec_date)
+        # read from bronze
+        df = read_file(S3_BUCKET_BRONZE, "movies.csv")
+        # print("Executuion date is:", exec_date)
 
-    # standardize column names
-    df.columns = df.columns.str.strip().str.lower()
+        # standardize column names
+        df.columns = df.columns.str.strip().str.lower()
 
-    # ensure release_date is datetime
-    df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
-    df["release_date"] = df["release_date"].dt.tz_localize("UTC")
+        # ensure release_date is datetime
+        df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
+        df["release_date"] = df["release_date"].dt.tz_localize("UTC")
 
-    # drop duplicates
-    df = df.drop_duplicates()
+        # drop duplicates
+        df = df.drop_duplicates()
 
-    # Filter: full load up to execution_date (bounded by resumption_date if needed)
-    cutoff = min(exec_date, pipeline_start)
-    df = df[df["release_date"] <= cutoff]
-    df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
+        # Filter: full load up to execution_date (bounded by resumption_date if needed)
+        cutoff = min(exec_date, pipeline_start)
+        df = df[df["release_date"] <= cutoff]
+        df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
 
-    logger.info(f"Full load of {df.shape[0]} records up to {cutoff.date()}")
+        logger.info(f"Full load of {df.shape[0]} records up to {cutoff.date()}")
 
-    # drop rows with missing item_id or movie_title
-    df = df.dropna(subset=["item_id", "movie_title"])
+        # drop rows with missing item_id or movie_title
+        df = df.dropna(subset=["item_id", "movie_title"])
 
-    # trim and clean string columns
-    df["movie_title"] = df["movie_title"].str.strip()
-    df["primary_genre"] = df["primary_genre"].str.strip().str.title()
-    df["imdb_url"] = df["imdb_url"].str.strip()
+        # trim and clean string columns
+        df["movie_title"] = df["movie_title"].str.strip()
+        df["primary_genre"] = df["primary_genre"].str.strip().str.title()
+        df["imdb_url"] = df["imdb_url"].str.strip()
 
-    # final shape logging
-    logger.info(f"Movies data cleaned with {df.shape[0]} records")
+        # final shape logging
+        logger.info(f"Movies data cleaned with {df.shape[0]} records")
 
-    # upload to silver
-    write_to_silver(df, "movies.csv")
+        # upload to silver
+        write_to_silver(df, "movies.csv")
 
-    # update the watermark with the latest processing record
-    if not df.empty:
-        latest_max_value = df["release_date"].max()
-        data = {
-            "dataset_name": "movies",
-            "max_value": latest_max_value,
-            "records_loaded": df.shape[0],
-            "processing_time": pd.Timestamp.now(),
-        }
+        # update the watermark with the latest processing record
+        if not df.empty:
+            latest_max_value = df["release_date"].max()
+            data = {
+                "dataset_name": "movies",
+                "max_value": latest_max_value,
+                "records_loaded": df.shape[0],
+                "processing_time": pd.Timestamp.now(),
+            }
 
-        update_watermarks(data)
-
+            update_watermarks(data)
+    except Exception as e:
+        logger.error(f"prepare_movie_df failed: {e}")
+        raise
 
 # function to transform ratings df
 def prepare_ratings_df(pipeline_start, **kwargs: dict):

@@ -212,7 +212,7 @@ def test_read_watermarks_failure(mock_init_client, caplog):
     """
     Unit test for `read_watermarks()` when S3 client raises an exception.
 
-    Args:
+    Parameters:
         mock_init_client (MagicMock): Mocked version of `initialize_s3_client`.
         caplog (pytest.LogCaptureFixture): Captures log output during test execution.
     """
@@ -237,6 +237,11 @@ def test_read_watermarks_failure(mock_init_client, caplog):
     assert df.empty
     assert list(df.columns) == ["dataset_name", "max_value", "records_loaded", "processing_time"]
    
+
+# ---------------
+# update_watermarks
+# ---------------
+
 
 # integration for read watermarks
 

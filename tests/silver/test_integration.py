@@ -1,22 +1,24 @@
 import pytest
 from moto import mock_aws
 import boto3
+import io
 import pandas as pd
 from unittest.mock import patch
 from pipeline.b_silver.transform import prepare_movie_df
 
 
-# test_movie_flow
+# test prepare_movie_df success
 @pytest.mark.integration
 @mock_aws
 @patch("pipeline.b_silver.transform.initialize_s3_client")
-def test_prepare_movie_df_integration(mock_init_client, movie_data):
+def test_prepare_movie_df_success(mock_init_client, movie_data):
     """
     Integration test for prepare_movie_df() that reads movie data from the bronze bucket,
     transforms it, and writes the result to the silver bucket.
 
     Parameters:
         mock_init_client (MagicMock): Mocked S3 client initializer.
+        movie_data (pytest Fixture): Sample data defined in conftest.py.
     """
     
     # setup fake s3
@@ -36,13 +38,48 @@ def test_prepare_movie_df_integration(mock_init_client, movie_data):
 
         # Run
         pipeline_start = pd.Timestamp("2020-01-01", tz="UTC")
-        kwargs = {"data_interval_start": pd.Timestamp("2020-12-31", tz="UTC")}
+        kwargs = {"data_interval_end": pd.Timestamp("2020-12-31", tz="UTC")}
         prepare_movie_df(pipeline_start, **kwargs)
 
-        # Verify
+        # Load the CSV from mock S3 directly into a DataFrame
         response = s3.get_object(Bucket="movie-pipeline-silver", Key="movies.csv")
-        content = response["Body"].read().decode("utf-8")
-        assert "Inception" in content
-        assert "Animation" in content
-        assert "Action" not in content
+        df_result = pd.read_csv(io.BytesIO(response["Body"].read()))
 
+        # Validate Resutt
+        assert df_result.shape[0] == 5
+
+        assert "Inception" in df_result["movie_title"].values
+        assert "Animation" in df_result["primary_genre"].values
+        assert "Action" not in df_result["primary_genre"].values
+
+# test prepare_movie_df failure
+@pytest.mark.integration
+@mock_aws
+@patch("pipeline.b_silver.transform.read_file")
+@patch("pipeline.b_silver.transform.initialize_s3_client")
+def test_prepare_movie_df_handles_missing_file(mock_init_client, mock_read_file, caplog):
+    """
+    Integration test for prepare_movie_df() when reading from bronze fails.
+
+    Args:
+        mock_init_client (MagicMock): Mocked version of `initialize_s3_client`.
+    """
+    
+    s3 = boto3.client("s3", region_name="us-east-1")
+    s3.create_bucket(Bucket="movie-pipeline-bronze")
+    s3.create_bucket(Bucket="movie-pipeline-silver")
+
+    mock_read_file.side_effect = Exception("Simulated read failure")
+    mock_init_client.return_value = s3
+
+    with patch("config.S3_BUCKET_BRONZE", "movie-pipeline-bronze"), \
+         patch("config.S3_BUCKET_SILVER", "movie-pipeline-silver"):
+        
+        # Run function
+        with pytest.raises(Exception):
+            pipeline_start = pd.Timestamp("2020-01-01", tz="UTC")
+            kwargs = {"data_interval_end": pd.Timestamp("2020-12-31", tz="UTC")}
+            prepare_movie_df(pipeline_start, **kwargs)
+        
+        # Validate log
+        assert "prepare_movie_df failed: Simulated read failure" in caplog.text
