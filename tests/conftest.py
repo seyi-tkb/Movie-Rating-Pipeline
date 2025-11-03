@@ -29,10 +29,23 @@ def user_data():
     )
 
 @pytest.fixture
-@mock_aws
+def rating_data():
+    return (
+        "user_id,item_id,rating,timestamp\n"
+        "1,101,4.0,946598400\n"  # 1999-12-25 00:00:00
+        "2,102,5.0,946624800\n"  # 1999-12-25 07:00:00
+        "3,103,3.0,946651200\n"  # 1999-12-25 14:00:00
+        "4,104,2.0,946677600\n"  # 1999-12-25 21:00:00
+        "5,105,4.5,946660800\n"  # 1999-12-25 16:00:00
+        "6,,3.5,946670000\n"  # 1999-12-25 18:46:40
+    )
+
+
+@pytest.fixture
 def s3_mock_env():
     """Creates a fake S3 environment with both Bronze and Silver buckets."""
-    s3 = boto3.client("s3", region_name="us-east-1")
-    s3.create_bucket(Bucket="movie-pipeline-silver")
-    s3.create_bucket(Bucket="movie-pipeline-bronze")
-    yield s3  # provides it to the test
+    with mock_aws(): #instad of patching so as not to produce a generator
+        s3 = boto3.client("s3", region_name="us-east-1")
+        s3.create_bucket(Bucket="movie-pipeline-silver")
+        s3.create_bucket(Bucket="movie-pipeline-bronze")
+        yield s3
