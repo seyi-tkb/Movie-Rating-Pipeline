@@ -61,7 +61,11 @@ def load_movie_df():
     """
 
     # read from silver
-    df = read_silver_file("movies.csv")
+    try:
+        df = read_silver_file("movies.csv")
+    except Exception as e:
+        logger.error(f"Read failed: {str(e)}")
+        raise
 
     # Convert release_date to datetime
     df["release_date"] = pd.to_datetime(

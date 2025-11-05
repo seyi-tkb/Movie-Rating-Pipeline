@@ -51,9 +51,11 @@ def execute_sql(sql: str, text_name: str):
 
 
 # function to upload to postgres
-def write_to_postgres(
-    df: pd.DataFrame, table_name: str, mode: str = "append", schema: str = "stg"
-):  # append but table is always truncated so its clean. "replace" and to_sql cause type issues
+def write_to_postgres(df: pd.DataFrame, 
+                      table_name: str, 
+                      mode: str = "append", 
+                      schema: str = "stg"):  
+    # append but table is always truncated so its clean. "replace" and to_sql cause type issues
     """
     Writes a pandas DataFrame to a PostgreSQL table.
 
