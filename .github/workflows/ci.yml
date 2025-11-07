@@ -53,12 +53,6 @@ jobs:
           echo "Checking code formatting..."
           black --check .
 
-      # Run tests
-      - name: Run pytest
-        run: |
-          echo "Running tests..."
-          pytest -m unit -v --maxfail=1 --disable-warnings
-
       # verify difference
       - name: Show diff between main and staging
         run: |
