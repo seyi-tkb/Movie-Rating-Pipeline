@@ -53,22 +53,23 @@ jobs:
           echo "Checking code formatting..."
           black --check .
 
-      # verify difference
-      - name: Show diff between main and staging
-        run: |
-          git fetch origin
-          git diff origin/staging..origin/main --stat
+      # # verify difference
+      # - name: Show diff between main and staging
+      #   run: |
+      #     git fetch origin
+      #     git diff origin/staging..origin/main --stat
 
-        # Create pull request to main branch if all tests pass
+        # Create pull request to main branch if all tests pass 
       - name: Create Pull Request to main
-        if: ${{ success() }}
         uses: peter-evans/create-pull-request@v6
         with:
+            token: ${{ secrets.GITHUB_TOKEN }}
             title: "Force Sync: staging → main"
             body: "This PR was created for debugging purposes even if no diff is found."
             commit-message: "ci: force PR debug"
-            base: main
-            branch: staging
+            source: staging
+            target: main
+            branch: staging-to-main
 
       - name: Debug Branch Differences
         run: |
