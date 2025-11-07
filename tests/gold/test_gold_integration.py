@@ -10,7 +10,6 @@ from config import S3_BUCKET_SILVER, WATERMARKS_PATH
 from pipeline.s_gold.sql.schema import create_ratings_partition, upsert_ratings
 
 
-
 # test silver_watermarks success
 @pytest.mark.integration
 @mock_aws
@@ -24,29 +23,36 @@ def test_silver_watermarks_success(mock_init_client, sample_watermarks):
         mock_init_client (MagicMock): Mocked S3 client initializer.
         sample_watermarks (str): CSV string defined in conftest.py.
     """
-    
+
     # setup fake s3
     s3 = boto3.client("s3", region_name="us-east-1")
     s3.create_bucket(Bucket="movie-pipeline-silver")
 
-    s3.put_object(Bucket="movie-pipeline-silver",
-                  Key= "watermarks/watermarks.csv",
-                  Body= sample_watermarks)
-    
+    s3.put_object(
+        Bucket="movie-pipeline-silver",
+        Key="watermarks/watermarks.csv",
+        Body=sample_watermarks,
+    )
+
     mock_init_client.return_value = s3
 
-    with patch("config.S3_BUCKET_SILVER", "movie-pipeline-silver"), \
-         patch("config.WATERMARKS_PATH", "watermarks/watermarks.csv"):
-        
-        new_data = {"dataset_name": "ratings",
-                    "max_value": "2025-11-01T00:00:00",
-                    "records_loaded": 2000,
-                    "processing_time": "2025-11-04T06:30:00"}
+    with patch("config.S3_BUCKET_SILVER", "movie-pipeline-silver"), patch(
+        "config.WATERMARKS_PATH", "watermarks/watermarks.csv"
+    ):
+
+        new_data = {
+            "dataset_name": "ratings",
+            "max_value": "2025-11-01T00:00:00",
+            "records_loaded": 2000,
+            "processing_time": "2025-11-04T06:30:00",
+        }
 
         update_silver_watermarks(new_data)
 
         # Load the CSV from mock S3 directly into a DataFrame to validate
-        response = s3.get_object(Bucket="movie-pipeline-silver", Key="watermarks/watermarks.csv")
+        response = s3.get_object(
+            Bucket="movie-pipeline-silver", Key="watermarks/watermarks.csv"
+        )
         df_result = pd.read_csv(io.BytesIO(response["Body"].read()))
 
         # Validate Resutt
@@ -61,24 +67,27 @@ def test_silver_watermarks_success(mock_init_client, sample_watermarks):
 # load_movie_df
 # ------------
 
+
 # Success path
 @pytest.mark.integration
 @patch("pipeline.s_gold.load.update_silver_watermarks")
 @patch("pipeline.s_gold.load.get_db_connection")
 @patch("pipeline.s_gold.load.write_to_postgres")
 @patch("pipeline.s_gold.load.read_silver_file")
-def test_load_movie_df_success(mock_read_silver_file,
-                               mock_write_to_postgres,
-                               mock_get_conn,
-                               mock_update_watermarks,
-                               movie_data):
+def test_load_movie_df_success(
+    mock_read_silver_file,
+    mock_write_to_postgres,
+    mock_get_conn,
+    mock_update_watermarks,
+    movie_data,
+):
     """
     Integration test for load_movie_df: reads, stages, upserts, and updates watermark.
 
     Parameters:
 
     """
-    
+
     # Mock
     mock_read_silver_file.return_value = pd.read_csv(io.StringIO(movie_data))
 
@@ -123,14 +132,14 @@ def test_prepare_movie_df_failure(mock_read_file, caplog):
         mock_write_file (MagicMock): Mocked version of `write_to_silver` to simulate failure.
         caplog (pytest.LogCaptureFixture): Captures log output for assertion.
     """
-    
+
     # Mock
     mock_read_file.side_effect = Exception("Simulated read failure")
-       
+
     # Run function
     with pytest.raises(Exception):
-            load_movie_df()
-        
+        load_movie_df()
+
     # Validate log
     assert "Simulated read failure" in caplog.text
 
@@ -139,22 +148,27 @@ def test_prepare_movie_df_failure(mock_read_file, caplog):
 # load_user_df
 # ------------
 
+
 # Success path
 @pytest.mark.integration
 @patch("pipeline.s_gold.load.update_silver_watermarks")
 @patch("pipeline.s_gold.load.get_db_connection")
 @patch("pipeline.s_gold.load.write_to_postgres")
 @patch("pipeline.s_gold.load.read_silver_file")
-def test_load_user_success(mock_read_silver_file, mock_write_to_postgres,
-                           mock_get_conn, mock_update_watermarks,
-                           user_data):
+def test_load_user_success(
+    mock_read_silver_file,
+    mock_write_to_postgres,
+    mock_get_conn,
+    mock_update_watermarks,
+    user_data,
+):
     """
     Integration test for load_movie_df: reads, stages, upserts, and updates watermark.
 
     Parameters:
 
     """
-    
+
     # Mock
     mock_read_silver_file.return_value = pd.read_csv(io.StringIO(user_data))
 
@@ -191,25 +205,24 @@ def test_load_user_success(mock_read_silver_file, mock_write_to_postgres,
 @pytest.mark.integration
 @patch("pipeline.s_gold.load.write_to_postgres")
 @patch("pipeline.s_gold.load.read_silver_file")
-def test_load_user_failure(mock_read_silver_file,
-                           mock_write_to_postgres,
-                           user_data,
-                           caplog):
+def test_load_user_failure(
+    mock_read_silver_file, mock_write_to_postgres, user_data, caplog
+):
     """
     Integration test for load_movie_df: reads, stages, upserts, and updates watermark.
 
     Parameters:
 
     """
-    
+
     # Mock
     mock_read_silver_file.return_value = pd.read_csv(io.StringIO(user_data))
     mock_write_to_postgres.side_effect = Exception("Simulated failure")
 
     # Run function
     with pytest.raises(Exception):
-         load_users_df()
-    
+        load_users_df()
+
     # Validate
     assert "Simulated failure" in caplog.text
 
@@ -218,6 +231,7 @@ def test_load_user_failure(mock_read_silver_file,
 # load_ratings_df
 # ------------
 
+
 # Success path
 @pytest.mark.integration
 @patch("pipeline.s_gold.load.update_silver_watermarks")
@@ -225,10 +239,15 @@ def test_load_user_failure(mock_read_silver_file,
 @patch("pipeline.s_gold.load.write_to_postgres")
 @patch("pipeline.s_gold.load.read_silver_watermarks")
 @patch("pipeline.s_gold.load.read_silver_file")
-def test_load_rating_df_success(mock_read_silver_file, mock_read_watermarks,
-                                mock_write_to_postgres, mock_execute_sql,
-                                mock_update_watermarks, rating_data,
-                                sample_watermarks_n):
+def test_load_rating_df_success(
+    mock_read_silver_file,
+    mock_read_watermarks,
+    mock_write_to_postgres,
+    mock_execute_sql,
+    mock_update_watermarks,
+    rating_data,
+    sample_watermarks_n,
+):
     """
     Integration test for load_ratings_df
 
@@ -244,15 +263,17 @@ def test_load_rating_df_success(mock_read_silver_file, mock_read_watermarks,
     # Parse data into DataFrames
     df = pd.read_csv(io.StringIO(rating_data))
     df["timestamp"] = pd.to_datetime(df["timestamp"], unit="s")
-    
+
     # Mock functions
     mock_read_silver_file.return_value = df
     mock_read_watermarks.return_value = pd.read_csv(io.StringIO(sample_watermarks_n))
 
     # Run function under test
     pipeline_start = pd.Timestamp("2000-01-01", tz="UTC")
-    kwargs = {"data_interval_start": pd.Timestamp("1999-12-20", tz="UTC"),
-              "data_interval_end": pd.Timestamp("1999-12-27", tz="UTC")}
+    kwargs = {
+        "data_interval_start": pd.Timestamp("1999-12-20", tz="UTC"),
+        "data_interval_end": pd.Timestamp("1999-12-27", tz="UTC"),
+    }
 
     load_ratings_df(pipeline_start, **kwargs)
 
@@ -288,15 +309,21 @@ def test_load_rating_df_success(mock_read_silver_file, mock_read_watermarks,
 @patch("pipeline.s_gold.load.write_to_postgres")
 @patch("pipeline.s_gold.load.read_silver_watermarks")
 @patch("pipeline.s_gold.load.read_silver_file")
-def test_load_ratings_df_failure(mock_read_silver_file, mock_read_watermarks,
-                                 mock_write_to_postgres, mock_execute_sql,
-                                 mock_update_watermarks, rating_data,
-                                 sample_watermarks_n, caplog):
+def test_load_ratings_df_failure(
+    mock_read_silver_file,
+    mock_read_watermarks,
+    mock_write_to_postgres,
+    mock_execute_sql,
+    mock_update_watermarks,
+    rating_data,
+    sample_watermarks_n,
+    caplog,
+):
     """
     Integration test for load_ratings_df
 
     Parameters:
-        
+
         mock_read_silver_file (MagicMock): Mocked function to simulate reading monthly ratings partitions from the silver layer.
         mock_read_watermarks (MagicMock): Mocked function to simulate reading watermark metadata.
         mock_write_to_postgres (MagicMock): Mocked function that raises an exception to simulate a write failure.
@@ -322,9 +349,11 @@ def test_load_ratings_df_failure(mock_read_silver_file, mock_read_watermarks,
     # Run function under test
     with pytest.raises(Exception):
         pipeline_start = pd.Timestamp("2000-01-01", tz="UTC")
-        kwargs = {"data_interval_start": pd.Timestamp("1999-12-20", tz="UTC"),
-                  "data_interval_end": pd.Timestamp("1999-12-27", tz="UTC")}
-        
+        kwargs = {
+            "data_interval_start": pd.Timestamp("1999-12-20", tz="UTC"),
+            "data_interval_end": pd.Timestamp("1999-12-27", tz="UTC"),
+        }
+
         load_ratings_df(pipeline_start, **kwargs)
 
     # Validate

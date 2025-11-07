@@ -4,7 +4,7 @@ from io import BytesIO
 from pipeline.s_gold.silver_watermarks import update_silver_watermarks
 from pipeline.s_gold.read_bucket import read_silver_file
 from sqlalchemy.sql import text
-from pipeline.s_gold.connection import get_db_connection, execute_sql, write_to_postgres 
+from pipeline.s_gold.connection import get_db_connection, execute_sql, write_to_postgres
 
 from config import S3_BUCKET_SILVER
 
@@ -14,6 +14,7 @@ from unittest.mock import patch, MagicMock, ANY
 
 from moto import mock_aws
 import boto3
+
 
 # -------------
 # read_silver_file()
@@ -28,8 +29,7 @@ def test_read_silver_file_success(mock_init_client, sample_bytes_data):
 
     # Mock
     mock_client = MagicMock()
-    mock_client.get_object.return_value = {
-        "Body": BytesIO(sample_bytes_data)}
+    mock_client.get_object.return_value = {"Body": BytesIO(sample_bytes_data)}
     mock_init_client.return_value = mock_client
 
     # Run Function
@@ -37,8 +37,10 @@ def test_read_silver_file_success(mock_init_client, sample_bytes_data):
 
     # Validate call
     mock_init_client.assert_called_once()
-    mock_client.get_object.assert_called_once_with(Bucket="movie-pipeline-silver", Key="silver/test.csv")
-    
+    mock_client.get_object.assert_called_once_with(
+        Bucket="movie-pipeline-silver", Key="silver/test.csv"
+    )
+
     # Validate result
     assert isinstance(df, pd.DataFrame)
     assert df.shape == (2, 3)
@@ -60,7 +62,7 @@ def test_read_silver_file_success(mock_init_client, caplog):
     mock_client.get_object.side_effect = Exception("Error Type")
 
     # Run Function
-    with pytest.raises(Exception, match = "Error Type"):
+    with pytest.raises(Exception, match="Error Type"):
         read_silver_file("silver/bad_test.csv")
 
     # Assert that the error message was logged
@@ -77,19 +79,23 @@ def test_read_silver_file_success(mock_init_client, caplog):
 # get_db_connection
 # ------------
 
+
 @pytest.mark.unit
-@patch("pipeline.s_gold.connection.POSTGRES_CONFIG", {
-    "user": "test_user",
-    "password": "test_pass",
-    "host": "localhost",
-    "port": "5432",
-    "database": "test_db"})
+@patch(
+    "pipeline.s_gold.connection.POSTGRES_CONFIG",
+    {
+        "user": "test_user",
+        "password": "test_pass",
+        "host": "localhost",
+        "port": "5432",
+        "database": "test_db",
+    },
+)
 def test_get_db_connection_success():
-    """
-    """
+    """ """
     # Run Function
     engine = get_db_connection()
-    
+
     # Validate
     assert engine is not None
     assert "postgresql" in str(engine.url)
@@ -98,6 +104,7 @@ def test_get_db_connection_success():
 # -------------
 # execute_sql
 # ------------
+
 
 # success path
 @pytest.mark.unit
@@ -148,6 +155,7 @@ def test_execute_sql_failure(mock_get_conn, caplog):
     # Validate
     assert f"Error creating table '{text_name}': Simulated failure" in caplog.text
 
+
 import logging
 
 
@@ -155,13 +163,14 @@ import logging
 # write_to_postgres
 # ------------
 
+
 @pytest.mark.unit
 @patch("pipeline.s_gold.connection.get_db_connection")
 def test_write_to_postgres_success(mock_get_engine, sample_df, caplog):
     """✅ Test successful write with mocked engine"""
 
-    caplog.set_level(logging.INFO)   # ensure INFO level is captured here
-    
+    caplog.set_level(logging.INFO)  # ensure INFO level is captured here
+
     # Mock db connection
     mock_engine = MagicMock()
     mock_get_engine.return_value = mock_engine

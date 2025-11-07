@@ -24,7 +24,6 @@ def prepare_movie_df(pipeline_start, **kwargs: dict):
             - execution_date (datetime): The logical start of the DAG run.
     """
 
-    
     try:
         logger.info("Starting transformations for movie data..")
 
@@ -80,6 +79,7 @@ def prepare_movie_df(pipeline_start, **kwargs: dict):
     except Exception as e:
         logger.error(f"prepare_movie_df failed: {e}")
         raise
+
 
 # function to transform ratings df
 def prepare_ratings_df(pipeline_start, **kwargs: dict):
@@ -180,7 +180,9 @@ def prepare_ratings_df(pipeline_start, **kwargs: dict):
             logger.warning("No watermark file found. Proceeding without filter.")
 
         if df.empty:
-            logger.warning("No new ratings data to upload after watermark filtering. End")
+            logger.warning(
+                "No new ratings data to upload after watermark filtering. End"
+            )
             return
 
         # write initial load into one partition
@@ -234,7 +236,7 @@ def prepare_ratings_df(pipeline_start, **kwargs: dict):
             }
 
             update_watermarks(data)
-    
+
     except Exception as e:
         logger.error(f"prepare_ratings_df failed: {e}")
         raise
@@ -287,6 +289,7 @@ def prepare_users_df():
     except Exception as e:
         logger.error(f"prepare_user_df failed: {e}")
         raise
+
 
 if __name__ == "__main__":
     pass
