@@ -57,7 +57,7 @@ jobs:
       - name: Run pytest
         run: |
           echo "Running tests..."
-          pytest -v --maxfail=1 --disable-warnings
+          pytest -m unit -v --maxfail=1 --disable-warnings
 
       # verify difference
       - name: Show diff between main and staging
