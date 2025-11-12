@@ -30,5 +30,7 @@ jobs:
         run: |
           git fetch origin main
           git checkout main
-          git merge origin/staging --no-edit || true  # merge staging into main
-          git push origin main
+          git reset --hard origin/staging
+          git push origin main --force
+
+# git merge origin/staging --no-edit || true  # merge staging into main
